@@ -4,9 +4,9 @@ Hosting-Repo für die vom **OnePager-Design-Agenten** (agent-hub) erzeugten Kund
 Gemeinsam genutzt von Dennis & Ogulcan (JaFa Systems).
 
 <!-- ONEPAGER-LIST:START -->
-## Veröffentlichte OnePager (0)
+## Veröffentlichte OnePager (1)
 
-_Noch keine veröffentlichten OnePager._
+- [Salon Nicolai](https://dennis951.github.io/onepager-sites/salon-nicolai-fulpnw/) — Friseur · veröffentlicht von Agent-Hub · 2026-06-17
 <!-- ONEPAGER-LIST:END -->
 
 ## Wie es funktioniert
