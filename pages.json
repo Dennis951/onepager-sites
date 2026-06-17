@@ -1,15 +1,3 @@
 {
-  "pages": [
-    {
-      "slug": "deltest-ehtdgn",
-      "companyName": "DelTest",
-      "branche": "x",
-      "url": "https://dennis951.github.io/onepager-sites/deltest-ehtdgn/",
-      "runId": "del-run",
-      "deployedAt": "2026-06-17T15:20:06.990Z",
-      "deployedBy": "Ogulcan",
-      "commit": "",
-      "comments": []
-    }
-  ]
+  "pages": []
 }
