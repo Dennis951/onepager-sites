@@ -1,3 +1,15 @@
 {
-  "pages": []
+  "pages": [
+    {
+      "slug": "salon-nicolai-fulpnw",
+      "companyName": "Salon Nicolai",
+      "branche": "Friseur",
+      "url": "https://dennis951.github.io/onepager-sites/salon-nicolai-fulpnw/",
+      "runId": "2026-06-17-15-55-45-salon-nicolai-eknq",
+      "deployedAt": "2026-06-17T20:22:06.174Z",
+      "deployedBy": "Agent-Hub",
+      "commit": "",
+      "comments": []
+    }
+  ]
 }
