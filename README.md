@@ -3,6 +3,12 @@
 Hosting-Repo für die vom **OnePager-Design-Agenten** (agent-hub) erzeugten Kundenseiten.
 Gemeinsam genutzt von Dennis & Ogulcan (JaFa Systems).
 
+<!-- ONEPAGER-LIST:START -->
+## Veröffentlichte OnePager (0)
+
+_Noch keine veröffentlichten OnePager._
+<!-- ONEPAGER-LIST:END -->
+
 ## Wie es funktioniert
 
 - Jede veröffentlichte OnePage liegt unter `/<slug>/` (z. B. `/musterbau-a1b2c3/`) und wird über
