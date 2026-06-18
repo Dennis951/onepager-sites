@@ -10,6 +10,17 @@
       "deployedBy": "Agent-Hub",
       "commit": "e97190d",
       "comments": []
+    },
+    {
+      "slug": "oki-la-z2q9gr",
+      "companyName": "Oki.la",
+      "branche": "Restaurant/Cafe",
+      "url": "https://dennis951.github.io/onepager-sites/oki-la-z2q9gr/",
+      "runId": "2026-06-18-13-07-10-oki-la-e61a",
+      "deployedAt": "2026-06-18T15:13:09.445Z",
+      "deployedBy": "Agent-Hub",
+      "commit": "",
+      "comments": []
     }
   ]
 }
