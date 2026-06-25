@@ -4,8 +4,9 @@ Hosting-Repo für die vom **OnePager-Design-Agenten** (agent-hub) erzeugten Kund
 Gemeinsam genutzt von Dennis & Ogulcan (JaFa Systems).
 
 <!-- ONEPAGER-LIST:START -->
-## Veröffentlichte OnePager (2)
+## Veröffentlichte OnePager (3)
 
+- [Nana](https://dennis951.github.io/onepager-sites/nana-eguiz9/) — Café/Bistro (Brunch, Matcha & Eis) · veröffentlicht von Agent-Hub · 2026-06-25
 - [Oki.la](https://dennis951.github.io/onepager-sites/oki-la-z2q9gr/) — Restaurant/Cafe · veröffentlicht von Agent-Hub · 2026-06-18
 - [Salon Nicolai](https://dennis951.github.io/onepager-sites/salon-nicolai-fulpnw/) — Friseur · veröffentlicht von Agent-Hub · 2026-06-17
 <!-- ONEPAGER-LIST:END -->

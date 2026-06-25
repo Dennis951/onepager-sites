@@ -19,6 +19,17 @@
       "runId": "2026-06-18-13-07-10-oki-la-e61a",
       "deployedAt": "2026-06-18T15:13:09.445Z",
       "deployedBy": "Agent-Hub",
+      "commit": "7dd14d1",
+      "comments": []
+    },
+    {
+      "slug": "nana-eguiz9",
+      "companyName": "Nana",
+      "branche": "Café/Bistro (Brunch, Matcha & Eis)",
+      "url": "https://dennis951.github.io/onepager-sites/nana-eguiz9/",
+      "runId": "2026-06-21-22-11-10-nana-wg7q",
+      "deployedAt": "2026-06-25T13:49:27.391Z",
+      "deployedBy": "Agent-Hub",
       "commit": "",
       "comments": []
     }
