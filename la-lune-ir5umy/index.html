@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta name="robots" content="noindex,nofollow" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>La Lune – Frühstück &amp; Brunch in Erlangen</title>
+  <meta name="description" content="La Lune – Café &amp; Brunch an der Hauptstraße 73 in Erlangen. Selbstgemachte Brioches, Egg-Drop-Sandwiches, hausgemachte Limonaden und Kuchen. Geöffnet ab 9 Uhr.">
+  <meta name="theme-color" content="#1c2340">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="restaurant">
+  <meta property="og:title" content="La Lune – Frühstück &amp; Brunch in Erlangen">
+  <meta property="og:description" content="Gemacht für lange Morgen, guten Kaffee und Gerichte, die im Gedächtnis bleiben.">
+  <meta property="og:image" content="img/about.jpg">
+  <meta property="og:locale" content="de_DE">
+
+  <link rel="icon" type="image/jpeg" href="img/logo.jpg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=DM+Sans:wght@400;500;600&family=Sacramento&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CafeOrCoffeeShop",
+    "name": "La Lune Café Brunch",
+    "servesCuisine": ["Frühstück", "Brunch", "Café"],
+    "image": "img/about.jpg",
+    "priceRange": "€€",
+    "telephone": "+49 9131 4010244",
+    "email": "Hello@cafelalune.de",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Hauptstraße 73",
+      "postalCode": "91054",
+      "addressLocality": "Erlangen",
+      "addressCountry": "DE"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.7",
+      "reviewCount": "446"
+    },
+    "openingHoursSpecification": [
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Thursday","Friday"], "opens": "09:00", "closes": "16:00" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Saturday","Sunday"], "opens": "09:00", "closes": "18:00" }
+    ],
+    "sameAs": [
+      "https://www.instagram.com/lalune.erlangen/",
+      "https://www.facebook.com/p/La-Lune-Erlangen-61554600815218/"
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#ueber">Zum Inhalt springen</a>
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <!-- ============== HEADER ============== -->
+  <header class="site-header">
+    <div class="wrap nav">
+      <a class="brand" href="#top" aria-label="La Lune – Startseite">
+        <span class="brand__moon" aria-hidden="true">☾</span>
+        <span class="brand__mark">La Lune</span>
+      </a>
+
+      <nav aria-label="Hauptnavigation">
+        <ul class="nav__links">
+          <li><a href="#ueber">Über uns</a></li>
+          <li><a href="#karte">Karte</a></li>
+          <li><a href="#atmosphaere">Atmosphäre</a></li>
+          <li><a href="#bewertungen">Bewertungen</a></li>
+          <li><a href="#besuchen">Besuchen</a></li>
+        </ul>
+      </nav>
+
+      <a class="btn btn--gold nav__cta" href="#besuchen">Uns besuchen</a>
+
+      <button class="nav__toggle" id="navToggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobileMenu">
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+
+    <div class="mobile-menu" id="mobileMenu">
+      <ul>
+        <li><a href="#ueber">Über uns</a></li>
+        <li><a href="#karte">Karte</a></li>
+        <li><a href="#atmosphaere">Atmosphäre</a></li>
+        <li><a href="#bewertungen">Bewertungen</a></li>
+        <li><a href="#besuchen">Besuchen</a></li>
+      </ul>
+      <a class="btn btn--gold" href="#besuchen">Uns besuchen →</a>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- ============== HERO ============== -->
+    <section class="hero" aria-label="Willkommen bei La Lune">
+      <div class="hero__bg" role="img" aria-label="Egg-Drop-Sandwich mit Pilzen auf blauem Teller im Morgenlicht"></div>
+      <div class="hero__overlay"></div>
+      <div class="hero__inner">
+        <span class="hero__moon" aria-hidden="true">☾</span>
+        <h1 class="hero__title">La&nbsp;Lune</h1>
+        <p class="hero__sub">Frühstück &amp; Brunch · Erlangen</p>
+        <p class="hero__tagline">Gemacht für lange Morgen, guten Kaffee und Gerichte, die noch im Gedächtnis bleiben.</p>
+        <div class="hero__actions">
+          <a class="btn btn--gold" href="#besuchen">Uns besuchen →</a>
+          <a class="btn btn--ghost" href="#karte">Zur Karte</a>
+        </div>
+        <div class="hero__hours" aria-label="Öffnungszeiten Überblick">
+          <span class="chip"><strong>Mo–Di · Do–Fr</strong> 9–16 Uhr</span>
+          <span class="chip"><strong>Sa–So</strong> 9–18 Uhr</span>
+          <span class="chip chip--closed"><strong>Mi</strong> Ruhetag</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== ÜBER UNS ============== -->
+    <section class="section about" id="ueber">
+      <div class="wrap about__grid">
+        <div class="about__body reveal">
+          <p class="eyebrow">Notre histoire</p>
+          <h2 class="section-title">La Lune ist aufgegangen.</h2>
+          <p style="margin-top:1.5rem;">
+            La Lune – der Mond – ist im April 2024 an der Hauptstraße 73 aufgegangen.
+            Was früher eine Shisha-Bar war, ist heute ein Ort für alles, was einen
+            Morgen besonders macht: selbstgemachte Brioches, Egg-Drop-Sandwiches,
+            hausgemachte Limonaden und Kuchen mit Liebe.
+          </p>
+          <p>
+            Gegründet von Linh und Musti – dem Team, das jeden Gast beim nächsten
+            Besuch wiedererkennt.
+          </p>
+          <p class="about__signature">Linh &amp; Musti</p>
+        </div>
+        <div class="about__media reveal">
+          <img src="img/about.jpg" width="800" height="1000"
+               alt="Französischer Toast mit Pistaziencreme, frischen Beeren und einem Latte auf blauem Tisch bei La Lune"
+               loading="lazy">
+          <div class="about__badge">
+            <b>2024</b>
+            <span>Seit April · Erlangen</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== SPEISEKARTE ============== -->
+    <section class="section menu" id="karte">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="eyebrow">Ce que nous aimons</p>
+          <h2 class="section-title">Kleine Karte. Große Küche.</h2>
+          <p class="lede" style="margin-top:1rem;">
+            Jedes Gericht wird frisch zubereitet – ob klassisch, vegan oder einfach
+            das, worauf du heute Lust hast.
+          </p>
+          <div class="menu__pills" aria-label="Angebots-Kategorien">
+            <span class="pill">Kaffee</span>
+            <span class="pill">Matcha</span>
+            <span class="pill">Limonaden</span>
+            <span class="pill">Veganes</span>
+            <span class="pill">Kaiserschmarrn</span>
+          </div>
+        </div>
+
+        <div class="menu__teaser reveal" aria-label="Beliebte Gerichte">
+          <div class="dish">
+            <span class="dish__name">Egg-Drop-Sandwich „Smokey&nbsp;Salmon“</span>
+            <span class="dish__dots" aria-hidden="true"></span>
+            <span class="dish__price">12,90&nbsp;€</span>
+          </div>
+          <div class="dish">
+            <span class="dish__name">Sauerteig-Stulle, Blattspinat &amp; Ziegenkäse</span>
+            <span class="dish__dots" aria-hidden="true"></span>
+            <span class="dish__price">10,90&nbsp;€</span>
+          </div>
+          <div class="dish">
+            <span class="dish__name">Veganer Erdbeerkuchen</span>
+            <span class="dish__dots" aria-hidden="true"></span>
+            <span class="dish__price">4,20&nbsp;€</span>
+          </div>
+        </div>
+
+        <!-- Karten-Karussell -->
+        <div class="carousel reveal" aria-roledescription="Karussell" aria-label="Speisekarte zum Durchblättern">
+          <div class="carousel__head">
+            <p class="carousel__hint">← Wische oder blättere durch unsere komplette Karte · zum Vergrößern antippen</p>
+            <div class="carousel__nav">
+              <button class="carousel__btn" id="menuPrev" aria-label="Vorherige Karte" type="button">‹</button>
+              <button class="carousel__btn" id="menuNext" aria-label="Nächste Karte" type="button">›</button>
+            </div>
+          </div>
+          <div class="carousel__track" id="menuTrack" tabindex="0" aria-label="Speisekarten-Seiten">
+            <!-- 12 Karten-Slides -->
+            <a class="menu-card" href="img/menu/menu-01.jpg" data-lightbox data-index="0"><span class="menu-card__zoom" aria-hidden="true">⤢</span><img src="img/menu/menu-01.jpg" alt="Speisekarte Seite 1: Sauerteig-Stullen" loading="lazy" width="640" height="1138"></a>
+            <a class="menu-card" href="img/menu/menu-02.jpg" data-lightbox data-index="1"><span class="menu-card__zoom" aria-hidden="true">⤢</span><img src="img/menu/menu-02.jpg" alt="Speisekarte Seite 2: Sauerteigbrot-Variationen mit Preisen" loading="lazy" width="640" height="1138"></a>
+            <a class="menu-card" href="img/menu/menu-03.jpg" data-lightbox data-index="2"><span class="menu-card__zoom" aria-hidden="true">⤢</span><img src="img/menu/menu-03.jpg" alt="Speisekarte Seite 3" loading="lazy" width="640" height="1138"></a>
+            <a class="menu-card" href="img/menu/menu-04.jpg" data-lightbox data-index="3"><span class="menu-card__zoom" aria-hidden="true">⤢</span><img src="img/menu/menu-04.jpg" alt="Speisekarte Seite 4" loading="lazy" width="640" height="1138"></a>
+            <a class="menu-card" href="img/menu/menu-05.jpg" data-lightbox data-index="4"><span class="menu-card__zoom" aria-hidden="true">⤢</span><img src="img/menu/menu-05.jpg" alt="Speisekarte Seite 5" loading="lazy" width="640" height="1138"></a>
+            <a class="menu-card" href="img/menu/menu-06.jpg" data-lightbox data-index="5"><span class="menu-card__zoom" aria-hidden="true">⤢</span><img src="img/menu/menu-06.jpg" alt="Speisekarte Seite 6: Herzhafte Croissants" loading="lazy" width="640" height="1138"></a>
+            <a class="menu-card" href="img/menu/menu-07.jpg" data-lightbox data-index="6"><span class="menu-card__zoom" aria-hidden="true">⤢</span><img src="img/menu/menu-07.jpg" alt="Speisekarte Seite 7" loading="lazy" width="640" height="1138"></a>
+            <a class="menu-card" href="img/menu/menu-08.jpg" data-lightbox data-index="7"><span class="menu-card__zoom" aria-hidden="true">⤢</span><img src="img/menu/menu-08.jpg" alt="Speisekarte Seite 8" loading="lazy" width="640" height="1138"></a>
+            <a class="menu-card" href="img/menu/menu-09.jpg" data-lightbox data-index="8"><span class="menu-card__zoom" aria-hidden="true">⤢</span><img src="img/menu/menu-09.jpg" alt="Speisekarte Seite 9" loading="lazy" width="640" height="1138"></a>
+            <a class="menu-card" href="img/menu/menu-10.jpg" data-lightbox data-index="9"><span class="menu-card__zoom" aria-hidden="true">⤢</span><img src="img/menu/menu-10.jpg" alt="Speisekarte Seite 10" loading="lazy" width="640" height="1138"></a>
+            <a class="menu-card" href="img/menu/menu-11.jpg" data-lightbox data-index="10"><span class="menu-card__zoom" aria-hidden="true">⤢</span><img src="img/menu/menu-11.jpg" alt="Speisekarte Seite 11" loading="lazy" width="640" height="1138"></a>
+            <a class="menu-card" href="img/menu/menu-12.jpg" data-lightbox data-index="11"><span class="menu-card__zoom" aria-hidden="true">⤢</span><img src="img/menu/menu-12.jpg" alt="Speisekarte Seite 12: Fruchtsäfte, Softdrinks &amp; Wein" loading="lazy" width="640" height="1138"></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== ATMOSPHÄRE ============== -->
+    <section class="section atmo" id="atmosphaere">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="eyebrow">L’atmosphère</p>
+          <h2 class="section-title">Blauer Samt. Goldene Details.</h2>
+          <p class="lede" style="margin-top:1rem;">
+            Große Fenster mit Blick auf die Erlanger Innenstadt – und ein kleiner
+            Außenbereich für sonnige Morgen. Komm rein. Oder raus.
+          </p>
+        </div>
+
+        <div class="atmo__grid reveal">
+          <a class="atmo__feature" href="img/gallery/g-amb.jpg" data-lightbox data-index="12">
+            <img src="img/gallery/g-amb.jpg"
+                 alt="Außenansicht von La Lune mit blauen Tischen und Stühlen vor der Tür und Schriftzug im Fenster"
+                 loading="lazy" width="900" height="1125">
+            <span class="atmo__caption">Vor der Tür
+              <small>Unser kleiner Außenbereich · 5–6 Zweier-Tische</small>
+            </span>
+          </a>
+
+          <a class="atmo__shot" href="assets/galerie-1.jpg" data-lightbox data-index="13">
+            <img src="assets/galerie-1.jpg"
+                 alt="Innenraum von La Lune mit blauen Samtpolstern, goldenem La-Lune-Schriftzug und goldenen Details an der Wand"
+                 loading="lazy" width="1024" height="768">
+            <span class="atmo__caption">Blauer Samt
+              <small>Innenraum mit goldenen Details · großen Fenstern zur Innenstadt</small>
+            </span>
+          </a>
+
+          <a class="atmo__shot" href="assets/hero.jpg" data-lightbox data-index="14">
+            <img src="assets/hero.jpg"
+                 alt="Zwei Gläser Iced Matcha mit rosa Erdbeer-Creme und frischer Erdbeere, angestoßen in der Sonne vor La Lune"
+                 loading="lazy" width="1080" height="1216">
+            <span class="atmo__caption">Kaffee &amp; Matcha
+              <small>Iced Matcha mit Erdbeer-Creme · für sonnige Morgen</small>
+            </span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== BEWERTUNGEN ============== -->
+    <section class="section section--dark reviews" id="bewertungen">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="eyebrow">Nos clients parlent</p>
+          <h2 class="section-title">Was unsere Gäste sagen.</h2>
+        </div>
+
+        <div class="reviews__rating reveal">
+          <div>
+            <div class="rating__score">4,7</div>
+            <div class="rating__stars" aria-hidden="true">★★★★★</div>
+          </div>
+          <div class="rating__meta">
+            <p style="margin:0;"><strong>4,7 / 5</strong> bei Google · 446+ Bewertungen</p>
+            <p style="margin:0;"><strong>4,9 / 5</strong> bei Neotaste · 305 Bewertungen</p>
+          </div>
+        </div>
+
+        <div class="reviews__grid reveal">
+          <blockquote class="review-card is-placeholder">
+            <div class="stars" aria-hidden="true">★★★★★</div>
+            <p class="review-card__quote">[PLATZHALTER: echtes Google-Zitat einsetzen]</p>
+            <footer class="review-card__author">— Gast, Google-Bewertung</footer>
+          </blockquote>
+          <blockquote class="review-card is-placeholder">
+            <div class="stars" aria-hidden="true">★★★★★</div>
+            <p class="review-card__quote">[PLATZHALTER: echtes Google-Zitat einsetzen]</p>
+            <footer class="review-card__author">— Gast, Google-Bewertung</footer>
+          </blockquote>
+          <blockquote class="review-card is-placeholder">
+            <div class="stars" aria-hidden="true">★★★★★</div>
+            <p class="review-card__quote">[PLATZHALTER: echtes Google-Zitat einsetzen]</p>
+            <footer class="review-card__author">— Gast, Google-Bewertung</footer>
+          </blockquote>
+        </div>
+
+        <div class="reviews__link reveal">
+          <a class="btn btn--ghost" href="https://www.google.com/maps/search/La+Lune+Erlangen" target="_blank" rel="noopener">
+            Alle Bewertungen auf Google ansehen →
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== BESUCH PLANEN ============== -->
+    <section class="section visit" id="besuchen">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="eyebrow">Nous rendre visite</p>
+          <h2 class="section-title">Komm vorbei.</h2>
+          <p class="lede" style="margin-top:1rem;">
+            Du findest uns mitten in Erlangen – 10 Minuten zu Fuß vom Bahnhof,
+            direkt an der Hauptstraße mit Blick auf das Stadtmuseum. Mittwochs
+            haben wir Ruhe. An allen anderen Tagen freuen wir uns auf dich.
+          </p>
+        </div>
+
+        <div class="visit__grid reveal">
+          <!-- Öffnungszeiten -->
+          <div class="info-card">
+            <h3><span class="ic" aria-hidden="true">◷</span> Öffnungszeiten</h3>
+            <table class="hours-table">
+              <tbody>
+                <tr><th>Montag</th><td>9–16 Uhr</td></tr>
+                <tr><th>Dienstag</th><td>9–16 Uhr</td></tr>
+                <tr class="closed"><th>Mittwoch</th><td>Ruhetag</td></tr>
+                <tr><th>Donnerstag</th><td>9–16 Uhr</td></tr>
+                <tr><th>Freitag</th><td>9–16 Uhr</td></tr>
+                <tr><th>Samstag</th><td>9–18 Uhr</td></tr>
+                <tr><th>Sonntag</th><td>9–18 Uhr</td></tr>
+              </tbody>
+            </table>
+            <div class="feature-note">
+              <span class="ic" aria-hidden="true">☀</span>
+              <span>Kleiner Außenbereich · 5–6 Tische für sonnige Morgen</span>
+            </div>
+          </div>
+
+          <!-- Kontakt -->
+          <div class="info-card">
+            <h3><span class="ic" aria-hidden="true">✉</span> Kontakt &amp; Adresse</h3>
+            <ul class="contact-list">
+              <li>
+                <span class="ic" aria-hidden="true">📍</span>
+                <span>
+                  <a href="https://www.google.com/maps/search/Hauptstra%C3%9Fe+73,+91054+Erlangen" target="_blank" rel="noopener">Hauptstraße 73, 91054 Erlangen</a>
+                  <small>Erlanger Innenstadt · Blick aufs Stadtmuseum</small>
+                </span>
+              </li>
+              <li>
+                <span class="ic" aria-hidden="true">☎</span>
+                <span>
+                  <a href="tel:+4991314010244">09131 4010244</a>
+                  <small>Mo–Di · Do–So erreichbar</small>
+                </span>
+              </li>
+              <li>
+                <span class="ic" aria-hidden="true">✉</span>
+                <span>
+                  <a href="mailto:Hello@cafelalune.de">Hello@cafelalune.de</a>
+                  <small>Für Anfragen &amp; Gruppen</small>
+                </span>
+              </li>
+            </ul>
+
+            <div class="reserve-note">
+              <strong>Reservierung</strong>
+              Nur telefonisch unter <a href="tel:+4991314010244">09131 4010244</a> – kein Online-Buchungssystem.
+            </div>
+
+            <div class="socials">
+              <a class="social-btn" href="https://www.instagram.com/lalune.erlangen/" target="_blank" rel="noopener">
+                <span aria-hidden="true">◎</span> Instagram
+              </a>
+              <a class="social-btn" href="https://www.facebook.com/p/La-Lune-Erlangen-61554600815218/" target="_blank" rel="noopener">
+                <span aria-hidden="true">f</span> Facebook
+              </a>
+            </div>
+          </div>
+
+          <!-- Standort-Karte (echte Google-Maps-Einbettung) -->
+          <div class="map-embed">
+            <div class="map-embed__frame">
+              <iframe
+                title="Standort von La Lune Café Brunch auf Google Maps – Hauptstraße 73, 91054 Erlangen"
+                src="https://www.google.com/maps?q=Hauptstra%C3%9Fe%2073%2C%2091054%20Erlangen&z=16&output=embed"
+                width="600" height="450"
+                style="border:0;"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                allowfullscreen></iframe>
+            </div>
+            <div class="map-embed__bar">
+              <span class="map-embed__pin" aria-hidden="true">☾</span>
+              <span class="map-embed__text">
+                <b>La Lune Café Brunch</b>
+                <small>Hauptstraße 73, 91054 Erlangen · Erlanger Innenstadt</small>
+              </span>
+              <a class="map-embed__btn" href="https://www.google.com/maps/search/Hauptstra%C3%9Fe+73,+91054+Erlangen" target="_blank" rel="noopener">
+                Route&nbsp;planen <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============== FOOTER ============== -->
+  <footer class="site-footer">
+    <div class="wrap">
+      <img class="site-footer__logo" src="img/logo.jpg" alt="La Lune Logo" width="120" height="120" loading="lazy">
+      <p class="site-footer__tag">À bientôt</p>
+      <div class="footer-meta">
+        <p style="margin:0;">La Lune Café Brunch · Hauptstraße 73 · 91054 Erlangen</p>
+        <p style="margin:0;"><a href="tel:+4991314010244">09131 4010244</a> · <a href="mailto:Hello@cafelalune.de">Hello@cafelalune.de</a></p>
+      </div>
+      <p class="footer-legal">
+        © 2024 La Lune Café Brunch, Erlangen ·
+        <a href="#" aria-disabled="true">[PLATZHALTER: Impressum]</a> ·
+        <a href="#" aria-disabled="true">[PLATZHALTER: Datenschutz]</a>
+      </p>
+      <p class="footer-credit">Entwurf – Webdesign by JaFa Systems</p>
+    </div>
+  </footer>
+
+  <!-- ============== STICKY MOBILE-BAR ============== -->
+  <nav class="mobile-bar" aria-label="Schnellkontakt">
+    <a href="tel:+4991314010244" class="is-primary"><span aria-hidden="true">☎</span> Anrufen</a>
+    <a href="https://www.google.com/maps/search/Hauptstra%C3%9Fe+73,+91054+Erlangen" target="_blank" rel="noopener"><span aria-hidden="true">📍</span> Route</a>
+  </nav>
+
+  <!-- ============== LIGHTBOX ============== -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Bild-Vorschau" hidden>
+    <button class="lightbox__close" id="lbClose" aria-label="Schließen" type="button">✕</button>
+    <button class="lightbox__prev" id="lbPrev" aria-label="Vorheriges Bild" type="button">‹</button>
+    <img id="lbImg" src="" alt="">
+    <button class="lightbox__next" id="lbNext" aria-label="Nächstes Bild" type="button">›</button>
+  </div>
+
+  <script src="app.js" defer></script>
+</body>
+</html>

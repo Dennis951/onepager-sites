@@ -30,6 +30,17 @@
       "runId": "2026-06-21-22-11-10-nana-wg7q",
       "deployedAt": "2026-06-25T13:49:27.391Z",
       "deployedBy": "Agent-Hub",
+      "commit": "63ad305",
+      "comments": []
+    },
+    {
+      "slug": "la-lune-ir5umy",
+      "companyName": "La Lune",
+      "branche": "Frühstücks-/Brunch-Café",
+      "url": "https://dennis951.github.io/onepager-sites/la-lune-ir5umy/",
+      "runId": "2026-06-23-21-31-34-la-lune-mlfm",
+      "deployedAt": "2026-06-25T14:05:45.440Z",
+      "deployedBy": "Agent-Hub",
       "commit": "",
       "comments": []
     }
