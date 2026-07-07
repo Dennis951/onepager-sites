@@ -41,6 +41,17 @@
       "runId": "2026-06-23-21-31-34-la-lune-mlfm",
       "deployedAt": "2026-06-25T14:05:45.440Z",
       "deployedBy": "Agent-Hub",
+      "commit": "b831d65",
+      "comments": []
+    },
+    {
+      "slug": "auto-detailing-george-ddqi29",
+      "companyName": "Auto Detailing George",
+      "branche": "Autoreinigung",
+      "url": "https://dennis951.github.io/onepager-sites/auto-detailing-george-ddqi29/",
+      "runId": "2026-07-06-17-10-34-auto-detailing-george-hujb",
+      "deployedAt": "2026-07-07T15:33:59.011Z",
+      "deployedBy": "Agent-Hub",
       "commit": "",
       "comments": []
     }
