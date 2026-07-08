@@ -13,6 +13,17 @@ Gemeinsam genutzt von Dennis & Ogulcan (JaFa Systems).
 - [Salon Nicolai](https://dennis951.github.io/onepager-sites/salon-nicolai-fulpnw/) — Friseur · veröffentlicht von Agent-Hub · 2026-06-17
 <!-- ONEPAGER-LIST:END -->
 
+## Angebots-Baukasten
+
+Interaktiver Kunden-Konfigurator im JaFa-Design (Basis-Website → Module → Betreuung →
+Marketing/Wachstum, Live-Summe + druckbarer Ankreuz-Katalog):
+
+**➡️ https://dennis951.github.io/onepager-sites/angebots-baukasten/**
+
+Quelle/Pflege: `knowledge-base/angebots-konfigurator/index.html` (KB-Repo) — bei Änderungen die
+Datei nach `angebots-baukasten/index.html` hierher re-kopieren und pushen. Alle Preise sind
+unverbindliche „ab"-Richtwerte.
+
 ## Wie es funktioniert
 
 - Jede veröffentlichte OnePage liegt unter `/<slug>/` (z. B. `/musterbau-a1b2c3/`) und wird über
