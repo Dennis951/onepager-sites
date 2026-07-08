@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JaFa Systems – Angebots-Baukasten</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap');
+*{box-sizing:border-box}
+body{font-family:'Manrope','Segoe UI',system-ui,Roboto,Arial,sans-serif;color:#1f2937;margin:0;padding:0 0 120px;line-height:1.55;font-size:13.5px;background:#f1f5f9}
+@media screen{body{zoom:1.25}}
+.wrap{max-width:900px;margin:0 auto;background:#fff;box-shadow:0 8px 40px rgba(1,11,21,.08)}
+
+/* Header */
+header{background:linear-gradient(135deg,#010b15 0%,#000956 55%,#3e29ae 100%);color:#fff;padding:30px 36px 28px;border-radius:0 0 22px 22px}
+.brand{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.brand .logo{width:46px;height:46px;border-radius:12px;background:#fff;display:flex;align-items:center;justify-content:center;padding:6px;box-shadow:0 2px 10px rgba(0,0,0,.25)}
+.brand .logo img{width:100%;height:100%;object-fit:contain}
+.brand .mark{font-weight:800;font-size:22px;letter-spacing:-.5px;background:linear-gradient(90deg,#07a7ec,#3e29ae,#8241a1,#bf0fc9);-webkit-background-clip:text;background-clip:text;color:transparent}
+.brand .sub{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#9fb3c8}
+h1{font-size:25px;margin:0 0 6px;color:#fff;font-weight:800;letter-spacing:-.3px}
+header .lead{color:#c7d2fe;font-size:13.5px;max-width:640px}
+
+/* Main */
+main{padding:10px 36px 40px}
+.intro{background:#f8fafc;border:1px solid #e9eef5;border-radius:14px;padding:12px 16px;margin:18px 0 6px;font-size:12.5px;color:#374151}
+h2{font-size:18px;color:#000956;margin:30px 0 4px;padding-left:12px;border-left:4px solid #3e29ae;font-weight:700;display:flex;align-items:center;gap:10px}
+h2 .n{flex:0 0 26px;width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#3e29ae,#bf0fc9);color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center}
+h3{font-size:14px;color:#3e29ae;margin:18px 0 4px;font-weight:700}
+.hint{color:#6b7280;font-size:12px;margin:2px 0 10px;padding-left:14px}
+
+/* Option grid + cards */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.grid.one{grid-template-columns:1fr}
+.opt{display:flex;align-items:flex-start;gap:12px;border:1px solid #e5e7eb;border-radius:14px;padding:12px 14px;background:#fff;cursor:pointer;position:relative;transition:border-color .12s,background .12s}
+.opt:hover{border-color:#c7d2fe}
+.opt input{position:absolute;opacity:0;width:0;height:0}
+.opt .box{flex:0 0 20px;width:20px;height:20px;border:2px solid #c3ccd8;border-radius:6px;margin-top:1px;display:flex;align-items:center;justify-content:center;background:#fff}
+.opt.radio .box{border-radius:50%}
+.opt input:checked ~ .box{background:#3e29ae;border-color:#3e29ae}
+.opt input:checked ~ .box::after{content:'\2713';color:#fff;font-size:13px;font-weight:800;line-height:1}
+.opt:has(input:checked){border-color:#3e29ae;background:#f5f3ff;box-shadow:inset 0 0 0 1px #3e29ae}
+.opt-body{flex:1;min-width:0}
+.opt-title{font-weight:700;color:#000956;font-size:13.5px}
+.opt-desc{color:#475569;font-size:12px;margin-top:2px}
+.opt-price{font-weight:800;color:#3e29ae;white-space:nowrap;font-size:13.5px;margin-left:6px;text-align:right}
+.opt-price small{display:block;font-weight:600;color:#6b7280;font-size:10.5px;letter-spacing:.3px}
+.opt-price .was{display:block;font-weight:600;color:#9ca3af;font-size:10.5px;text-decoration:line-through}
+.opt.warn{border-color:#f59e0b;background:#fff7ed}
+.tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:#3e29ae;background:#ede9fe;border-radius:999px;padding:1px 8px;margin-left:6px;vertical-align:1px}
+.tag.deal{color:#15803d;background:#dcfce7}
+
+/* Inklusive / im Paket enthalten */
+.opt.inc{border-color:#86efac;background:#f0fdf4;box-shadow:none;pointer-events:none}
+.opt.inc .box{background:#15803d;border-color:#15803d}
+.opt.inc .box::after{content:'\2713';color:#fff;font-size:13px;font-weight:800;line-height:1}
+.opt.inc .opt-price{color:#15803d}
+
+/* Pflicht-Pauschale (z. B. Hosting ohne Abo) */
+.opt.fee{border-color:#c7d2fe;background:#eef2ff;box-shadow:none;pointer-events:none}
+.opt.fee .box{background:#3e29ae;border-color:#3e29ae}
+.opt.fee .box::after{content:'\2713';color:#fff;font-size:13px;font-weight:800;line-height:1}
+.opt.fee .opt-price{color:#3e29ae}
+
+/* Gratis-Wahlmodul (Business/Premium) */
+.opt.free-pick .opt-price{color:#15803d}
+
+/* Varianten-/Mengen-Dropdown in einer Karte */
+.varsel{display:block;font-family:inherit;font-size:12px;font-weight:600;color:#000956;border:1px solid #c3ccd8;border-radius:8px;padding:4px 8px;margin-top:6px;background:#fff;max-width:220px}
+
+/* Sub-note blocks */
+.note{background:#f8fafc;border:1px solid #e9eef5;border-radius:12px;padding:9px 14px;margin:10px 0;font-size:12px;color:#475569}
+.note.budget{background:#fff7ed;border-color:#fde3c0;color:#92400e}
+.warnmsg{display:none;background:#fef3c7;border:1px solid #f59e0b;color:#92400e;padding:9px 14px;border-radius:12px;margin:8px 0;font-size:12.5px;font-weight:600}
+.warnmsg.show{display:block}
+
+/* Budget-Eingabe */
+.budget-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:#f8fafc;border:1px solid #e9eef5;border-radius:12px;padding:10px 14px;margin:10px 0}
+.budget-row label{font-weight:700;color:#000956;font-size:12.5px}
+.budget-row input{font-family:inherit;font-size:14px;font-weight:700;color:#000956;border:1px solid #c3ccd8;border-radius:8px;padding:7px 10px;width:110px}
+.budget-row .per{color:#6b7280;font-size:12px}
+
+/* Print summary (hidden on screen) */
+#printSummary{display:none}
+
+/* Footer */
+footer{margin-top:34px;padding:20px 36px 28px;border-top:3px solid #3e29ae;color:#6b7280;font-size:11.5px}
+footer .brand2{font-weight:800;background:linear-gradient(90deg,#07a7ec,#bf0fc9);-webkit-background-clip:text;background-clip:text;color:transparent}
+footer .cta{color:#000956;font-weight:700;font-size:13px;margin-bottom:6px}
+
+/* Sticky sum bar */
+.sumbar{position:fixed;left:0;right:0;bottom:0;z-index:40}
+.sumbar-inner{max-width:900px;margin:0 auto;background:linear-gradient(135deg,#000956,#3e29ae);color:#fff;border-radius:16px 16px 0 0;box-shadow:0 -6px 30px rgba(1,11,21,.28);padding:14px 24px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.sumbar .totals{display:flex;gap:26px;flex:1;flex-wrap:wrap;align-items:flex-end}
+.sumbar .t .lbl{font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;color:#9fb3c8}
+.sumbar .t .val{font-size:22px;font-weight:800;line-height:1.1}
+.sumbar .t .val small{font-size:12px;font-weight:600;color:#c7d2fe}
+.sumbar .t.small .val{font-size:14px;color:#fbbf24}
+.sumbar .actions{display:flex;gap:10px}
+.btn{border:none;border-radius:10px;padding:10px 16px;font-family:inherit;font-weight:700;font-size:12.5px;cursor:pointer}
+.btn.print{background:#fff;color:#000956}
+.btn.reset{background:rgba(255,255,255,.14);color:#fff}
+.btn:hover{opacity:.92}
+
+@media (max-width:640px){
+  main{padding:10px 18px 30px}
+  header{padding:24px 18px 22px}
+  .grid{grid-template-columns:1fr}
+  .sumbar-inner{padding:12px 16px}
+  .sumbar .t .val{font-size:19px}
+}
+
+/* Print / PDF */
+@media print{
+  @page{size:A4;margin:12mm}
+  body{background:#fff;padding:0;font-size:10.5px}
+  .wrap{max-width:100%;box-shadow:none}
+  header{border-radius:0;padding:22px 24px}
+  main{padding:6px 24px 20px}
+  .sumbar,.no-print{display:none !important}
+  .opt{break-inside:avoid;box-shadow:none !important}
+  .opt:hover{border-color:#e5e7eb}
+  h2{break-after:avoid;margin-top:20px}
+  .grid{gap:8px;margin:8px 0}
+  #printSummary{display:block;break-inside:avoid;margin-top:18px;border-radius:14px;overflow:hidden;border:1px solid #ddd6fe}
+  #printSummary .ps-head{background:linear-gradient(135deg,#000956,#3e29ae);color:#fff;padding:12px 18px;font-weight:800;font-size:14px}
+  #printSummary .ps-body{display:flex;gap:30px;padding:14px 18px;background:#f5f3ff;flex-wrap:wrap}
+  #printSummary .ps-body .lbl{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#6b7280}
+  #printSummary .ps-body .val{font-size:20px;font-weight:800;color:#000956}
+  footer{margin-top:16px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="brand">
+      <span class="logo"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAEuGlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4KPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iWE1QIENvcmUgNS41LjAiPgogPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIgogICAgeG1sbnM6ZXhpZj0iaHR0cDovL25zLmFkb2JlLmNvbS9leGlmLzEuMC8iCiAgICB4bWxuczp0aWZmPSJodHRwOi8vbnMuYWRvYmUuY29tL3RpZmYvMS4wLyIKICAgIHhtbG5zOnBob3Rvc2hvcD0iaHR0cDovL25zLmFkb2JlLmNvbS9waG90b3Nob3AvMS4wLyIKICAgIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyIKICAgIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIgogICAgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIKICAgZXhpZjpQaXhlbFhEaW1lbnNpb249IjI1NiIKICAgZXhpZjpQaXhlbFlEaW1lbnNpb249IjI1NiIKICAgZXhpZjpDb2xvclNwYWNlPSIxIgogICB0aWZmOkltYWdlV2lkdGg9IjI1NiIKICAgdGlmZjpJbWFnZUxlbmd0aD0iMjU2IgogICB0aWZmOlJlc29sdXRpb25Vbml0PSIyIgogICB0aWZmOlhSZXNvbHV0aW9uPSI3Mi8xIgogICB0aWZmOllSZXNvbHV0aW9uPSI3Mi8xIgogICBwaG90b3Nob3A6Q29sb3JNb2RlPSIzIgogICBwaG90b3Nob3A6SUNDUHJvZmlsZT0ic1JHQiBJRUM2MTk2Ni0yLjEiCiAgIHhtcDpNb2RpZnlEYXRlPSIyMDI0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" alt="JaFa Systems"></span>
+      <span class="mark">JaFa Systems</span>
+      <span class="sub">Angebots-Baukasten</span>
+    </div>
+    <h1>Ihre Website &amp; Ihr digitales Wachstum – modular</h1>
+    <p class="lead">Stellen Sie sich Ihr Wunschpaket Schritt für Schritt zusammen – auch ohne neue
+      Website: Module, Optimierung und Betreuung gibt es auch einzeln für Ihre bestehende Seite.
+      Alles transparent und zu klaren Richtpreisen.</p>
+  </header>
+
+  <main>
+    <div class="intro">
+      <strong>So funktioniert's:</strong> Wählen Sie in jedem Schritt aus, was Sie brauchen.
+      Unten sehen Sie live Ihren <strong>einmaligen Projektpreis</strong> und die
+      <strong>monatlichen Leistungen</strong>. Grün markiert = <strong>bei Ihrer Auswahl bereits
+      inklusive</strong>. Kein Muss – wir beraten Sie und stellen Ihr finales Angebot individuell zusammen.
+    </div>
+
+    <!-- STEP 1 -->
+    <section class="step">
+      <h2><span class="n">1</span> Basis wählen</h2>
+      <p class="hint">Das Fundament Ihres Auftritts – oder Ihre bestehende Website als Ausgangspunkt.
+        Bei jeder neuen Website inklusive: rechtliche Seiten, E-Mail-Einrichtung, Galerie/Portfolio und
+        Bewertungen. Hosting-Einrichtung ist mit Betreuungs-Abo inklusive (ohne Abo: 40 € Pauschale).</p>
+      <div class="grid">
+        <label class="opt radio">
+          <input type="radio" name="base" value="lp" data-price="499">
+          <span class="box"></span>
+          <span class="opt-body"><span class="opt-title">Landingpage / Digitale Visitenkarte</span>
+            <span class="opt-desc">1 Seite, mobil optimiert – Ihre digitale Visitenkarte: alle wichtigen Infos &amp; Kontakt/WhatsApp auf einen Blick, ohne Zusatzfunktionen, ohne SEO.</span></span>
+          <span class="opt-price">ab 499 €</span>
+        </label>
+        <label class="opt radio">
+          <input type="radio" name="base" value="biz" data-price="999" checked>
+          <span class="box"></span>
+          <span class="opt-body"><span class="opt-title">Business-Website <span class="tag">beliebt</span></span>
+            <span class="opt-desc">Startseite + bis 3 Unterseiten (Leistungen, Über uns, Kontakt) – <strong>1 Modul aus „Funktionen &amp; Inhalte" gratis</strong>. SEO separat buchbar.</span></span>
+          <span class="opt-price">ab 999 €</span>
+        </label>
+        <label class="opt radio">
+          <input type="radio" name="base" value="prem" data-price="1499">
+          <span class="box"></span>
+          <span class="opt-body"><span class="opt-title">Premium-Website</span>
+            <span class="opt-desc">Bis 5 Unterseiten, individuelle Struktur – <strong>inkl. SEO-Basispaket + 1 Modul aus „Funktionen &amp; Inhalte" gratis</strong>.</span></span>
+          <span class="opt-price">ab 1.499 €</span>
+        </label>
+        <label class="opt radio">
+          <input type="radio" name="base" value="shop" data-price="2999">
+          <span class="box"></span>
+          <span class="opt-body"><span class="opt-title">E-Commerce / Online-Shop</span>
+            <span class="opt-desc">Produkte, Warenkorb, Bezahlung, rechtssichere Shop-Seiten (WooCommerce) – <strong>inkl. SEO-Basispaket</strong>.</span></span>
+          <span class="opt-price">ab 2.999 €</span>
+        </label>
+        <label class="opt radio">
+          <input type="radio" name="base" value="custom" data-price="2500">
+          <span class="box"></span>
+          <span class="opt-body"><span class="opt-title">Individuelle Webprojekte</span>
+            <span class="opt-desc">Buchungssysteme, Mitgliederbereiche, Portale, Schnittstellen – <strong>inkl. SEO-Basispaket</strong>.</span></span>
+          <span class="opt-price">ab 2.500 €</span>
+        </label>
+        <label class="opt radio">
+          <input type="radio" name="base" value="none" data-price="0">
+          <span class="box"></span>
+          <span class="opt-body"><span class="opt-title">Ich habe bereits eine Website</span>
+            <span class="opt-desc">Keine neue Website – buchen Sie nur Module, Optimierung oder Betreuung, z. B. SEO für Ihre bestehende Seite.</span></span>
+          <span class="opt-price">0 €</span>
+        </label>
+      </div>
+    </section>
+
+    <!-- STEP 2 -->
+    <section class="step">
+      <h2><span class="n">2</span> Module hinzufügen</h2>
+      <p class="hint">Erweitern Sie gezielt – die Preise passen sich Ihrer Basis an
+        (ein Online-Shop ist z. B. aufwendiger zweisprachig zu machen als eine Landingpage).</p>
+
+      <h3>Sichtbarkeit &amp; SEO</h3>
+      <div class="grid">
+        <label class="opt" id="card-bundle">
+          <input type="checkbox" id="mod-bundle">
+          <span class="box"></span>
+          <span class="opt-body"><span class="opt-title">SEO-Komplettpaket <span class="tag deal">−10 %</span></span>
+            <span class="opt-desc">Alles für die Sichtbarkeit in einem Paket: SEO-Basis + Local SEO/Google-Profil + Performance-Optimierung.</span></span>
+          <span class="opt-price"><span class="was" id="bundleWas"></span><span id="bundlePrice"></span></span>
+        </label>
+        <label class="opt" data-mod="seo">
+          <input type="checkbox" data-price="299">
+          <span class="box"></span>
+          <span class="opt-body"><span class="opt-title">SEO-Basispaket</span>
+            <span class="opt-desc">Keyword-Recherche, Meta-Angaben, H-Struktur, Alt-Texte, Technik-Basics.</span></span>
+          <span class="opt-price">+299 €</span>
+        </label>
+        <label class="opt" data-mod="local">
+          <input type="checkbox" data-price="349">
+          <span class="box"></span>
+          <span class="opt-body"><span class="opt-title">Local SEO / Google-Profil-Optimierung</span>
+            <span class="opt-desc">Profil optimieren, lokale Keywords, Standortbezug, Bewertungsstrategie.</span></span>
+          <span class="opt-price">+349 €</span>
+        </label>
+        <label class="opt" data-mod="perf">
+          <input type="checkbox" data-prices='{"none":249,"lp":199,"biz":249,"prem":249,"custom":349,"shop":399}'>
+          <span class="box"></span>
+          <span class="opt-body"><span class="opt-title">Performance-Optimierung</span>
+            <span class="opt-desc">Ladezeit, Bildkomprimierung, technische Optimierung.</span></span>
+          <span class="opt-price">+249 €</span>
+        </label>
+        <label class="opt" data-mod="blog">
+          <input type="checkbox" data-price="299">
+          <span class="box"></span>
+          <span class="opt-body"><span class="opt-title">Blog / News-Bereich</span>
+            <span class="opt-desc">Struktur, Übersicht, Detailseiten, SEO-Content-Basis.</span></span>
+          <span class="opt-price">+299 €</span>
+        </label>
+      </div>
+
+      <h3>Funktionen &amp; Inhalte</h3>
+      <p class="hint">Bei Business- und Premium-Website ist <strong>1 Modul aus diesem Block gratis</strong> –
+        das günstigste ausgewählte wird automatisch abgezogen.</p>
+      <div class="grid">
+        <label class="opt" data-mod="page">
+          <input type="checkbox" data-price="149">
+          <span class="box"></span>
+          <span class="opt-body"><span class="opt-title">Zusätzliche Unterseite</span>
+            <span class="opt-desc">Team, Referenzen, Leistung, FAQ, Karriere – je Seite.</span></span>
+          <span class="opt-price">+149 €</span>
+        </label>
+        <label class="opt" data-mod="booking">
+          <input type="checkbox" data-price="299">
+          <span class="box"></span>
+          <span class="opt-body"><span class="opt-title">Terminbuchung</span>
+            <span class="opt-desc">Calendly-/Google-Kalender-Einbindung direkt auf der Website.</span></span>
+          <span class="opt-price">+299 €</span>
+        </label>
+        <label class="opt" data-mod="gallery">
+          <input type="checkbox" data-price="199">
+          <span class="box"></span>
+          <span class="opt-body"><span class="opt-title">Galerie / Portfolio</span>
+            <span class="opt-desc">Referenzen, Vorher-Nachher, Projektübersicht.</span></span>
+          <span class="opt-price">+199 €</span>
+        </label>
+        <label class="opt" data-mod="reviews">
+          <input type="checkbox" data-price="149">
+          <span class="box"></span>
+          <span class="opt-body"><span class="opt-title">Bewertungen / Testimonials</span>
+            <span class="opt-desc">Kundenstimmen einbinden, Google-Bewertungen verlinken.</span></span>
+          <span class="opt-price">+149 €</span>
+        </label>
+        <label class="opt" data-mod="form">
+          <input type="checkbox" data-price="99">
+          <span class="box"></span>
+          <span class="opt-body"><span class="opt-title">Kontaktformular erweitert</span>
+            <span class="opt-desc">Mehrfeldrige Anfragen, Bewerbungen, Projektanfragen.</span>
+            <select class="varsel">
+              <option data-price="99" selected>ohne Datei-Upload – 99 €</option>
+              <option data-price="149">mit Datei-Upload – 149 €</option>
+            </select></span>
+          <span class="opt-price">+99 €</span>
+        </label>
+        <label class="opt" data-mod="multi">
+          <input type="checkbox" data-prices='{"none":299,"lp":199,"biz":299,"prem":399,"custom":499,"shop":699}'>
+          <span class="box"></span>
+          <span class="opt-body"><span class="opt-title">Mehrsprachigkeit</span>
+            <span class="opt-desc">2. Sprache (Übersetzung durch Kunde), je weitere nach Aufwand. Preis abhängig vom Seitenumfang.</span></span>
+          <span class="opt-price">+299 €</span>
+        </label>
+      </div>
+
+      <h3>Recht &amp; Technik</h3>
+      <div class="grid">
+        <label class="opt" data-mod="legal">
+          <input type="checkbox" data-price="149">
+          <span class="box"></span>
+          <span class="opt-body"><span class="opt-title">Rechtliche Seiten</span>
+            <span class="opt-desc">Impressum &amp; Datenschutz via Generator/Partner, sauber eingebunden (keine Rechtsberatung).</span></span>
+          <span class="opt-price">+149 €</span>
+        </label>
+        <label class="opt" id="opt-cookie" data-mod="cookie">
+          <input type="checkbox" id="mod-cookie" data-price="149">
+          <span class="box"></span>
+          <span class="opt-body"><span class="opt-title">Cookie-Banner / DSGVO-Consent</span>
+            <span class="opt-desc">Für Tracking, Analytics, Meta Pixel &amp; externe Dienste. Erweiterte Variante +249 €.</span></span>
+          <span class="opt-price">+149 €</span>
+        </label>
+        <label class="opt" data-mod="track">
+          <input type="checkbox" id="mod-track" data-price="199">
+          <span class="box"></span>
+          <span class="opt-body"><span class="opt-title">Tracking &amp; Analytics</span>
+            <span class="opt-desc">GA4/Matomo, Zielvorhaben, Auswertung. <em>Voraussetzung: Cookie-Banner.</em></span></span>
+          <span class="opt-price">+199 €</span>
+        </label>
+        <label class="opt" data-mod="hosting">
+          <input type="checkbox" data-price="40">
+          <span class="box"></span>
+          <span class="opt-body"><span class="opt-title">Hosting-Einrichtung</span>
+            <span class="opt-desc">Server, Domain, SSL sauber aufgesetzt. Mit Betreuungs-Abo inklusive – ohne Abo einmalige Einrichtungspauschale 40 €.</span></span>
+          <span class="opt-price">+40 €</span>
+        </label>
+        <label class="opt" data-mod="email">
+          <input type="checkbox" data-price="79">
+          <span class="box"></span>
+          <span class="opt-body"><span class="opt-title">E-Mail-Einrichtung</span>
+            <span class="opt-desc">Professionelle Postfächer unter Ihrer Domain.</span></span>
+          <span class="opt-price">+79 €</span>
+        </label>
+      </div>
+
+      <h3>Praktische Extras (einmalig)</h3>
+      <div class="grid">
+        <label class="opt" data-mod="logo">
+          <input type="checkbox" data-price="59">
+          <span class="box"></span>
+          <span class="opt-body"><span class="opt-title">Logo-Erstellung</span>
+            <span class="opt-desc">Ihr Logo professionell gestaltet – Varianten zur Auswahl, alle Dateien für Web &amp; Print.</span></span>
+          <span class="opt-price">+59 €</span>
+        </label>
+        <label class="opt" data-mod="gprofile">
+          <input type="checkbox" data-price="49">
+          <span class="box"></span>
+          <span class="opt-body"><span class="opt-title">Google-Profil-Einrichtung</span>
+            <span class="opt-desc">Unternehmensprofil anlegen/übernehmen: Basisdaten, Kategorien, Fotos, Öffnungszeiten.</span></span>
+          <span class="opt-price">+49 €</span>
+        </label>
+        <label class="opt" data-mod="whatsapp">
+          <input type="checkbox" data-price="99">
+          <span class="box"></span>
+          <span class="opt-body"><span class="opt-title">WhatsApp-Business-Einrichtung</span>
+            <span class="opt-desc">Direkter Draht zu Kunden: Profil, Begrüßung, Schnellantworten.</span></span>
+          <span class="opt-price">+99 €</span>
+        </label>
+        <label class="opt" data-mod="nfc">
+          <input type="checkbox" data-price="49">
+          <span class="box"></span>
+          <span class="opt-body"><span class="opt-title">Bewertungs-Boost: NFC-/QR-Aufsteller</span>
+            <span class="opt-desc">2 Aufsteller/Karten für Theke oder Tisch – Kunden tippen/scannen und landen direkt auf Ihrem Google-Bewertungsformular.</span></span>
+          <span class="opt-price">+49 €</span>
+        </label>
+        <label class="opt" data-mod="cards">
+          <input type="checkbox" data-price="55">
+          <span class="box"></span>
+          <span class="opt-body"><span class="opt-title">Visitenkarten mit QR-Code</span>
+            <span class="opt-desc">Individuelles Design im Firmen-Look, QR-Code zu Website oder Google-Profil – inkl. Druck &amp; Lieferung.</span>
+            <select class="varsel">
+              <option data-price="55" selected>250 Stück – 55 €</option>
+              <option data-price="75">500 Stück – 75 €</option>
+              <option data-price="105">1.000 Stück – 105 €</option>
+            </select></span>
+          <span class="opt-price">+55 €</span>
+        </label>
+        <label class="opt" data-mod="signature">
+          <input type="checkbox" data-price="19">
+          <span class="box"></span>
+          <span class="opt-body"><span class="opt-title">E-Mail-Signatur im Firmendesign</span>
+            <span class="opt-desc">Professionelle Signatur mit Logo, Kontaktdaten und Website-Link für Ihr Team.</span></span>
+          <span class="opt-price">+19 €</span>
+        </label>
+      </div>
+      <div class="warnmsg" id="cookieWarn">Hinweis: <strong>Tracking &amp; Analytics</strong> benötigt den
+        <strong>Cookie-Banner</strong> – bitte zusätzlich auswählen.</div>
+    </section>
+
+    <!-- STEP 3 -->
+    <section class="step">
+      <h2><span class="n">3</span> Betreuung wählen</h2>
+      <p class="hint">Damit Ihre Website sicher, aktuell und schnell bleibt. <strong>Empfohlen &amp; vorausgewählt</strong> – funktioniert auch für bestehende Websites.</p>
+      <div class="grid one">
+        <label class="opt radio">
+          <input type="radio" name="care" data-price="79" data-period="month" checked>
+          <span class="box"></span>
+          <span class="opt-body"><span class="opt-title">Wartung Basic <span class="tag">empfohlen</span></span>
+            <span class="opt-desc">Hosting, Sicherheitsupdates, Backups, technische Überwachung – inkl. IT-Betreuung (Domain &amp; DNS, E-Mail-Postfächer, Google-Profil, kleine Tool-Fragen).</span></span>
+          <span class="opt-price">79 €<small>pro Monat</small></span>
+        </label>
+        <label class="opt radio">
+          <input type="radio" name="care" data-price="119" data-period="month">
+          <span class="box"></span>
+          <span class="opt-body"><span class="opt-title">Wartung Business</span>
+            <span class="opt-desc">Alles aus Basic + bis zu 3 Änderungen/Monat, monatliche Auswertung, priorisierter Support.</span></span>
+          <span class="opt-price">119 €<small>pro Monat</small></span>
+        </label>
+        <label class="opt radio">
+          <input type="radio" name="care" data-price="299" data-period="month">
+          <span class="box"></span>
+          <span class="opt-body"><span class="opt-title">Wachstum &amp; SEO</span>
+            <span class="opt-desc">Alles aus Business + laufende SEO-Optimierung, monatlicher Bericht, Keyword-Verbesserungen, Google-Profil-Pflege, Content-Vorschläge.</span></span>
+          <span class="opt-price">299 €<small>pro Monat</small></span>
+        </label>
+        <label class="opt radio">
+          <input type="radio" name="care" data-price="0" data-period="month">
+          <span class="box"></span>
+          <span class="opt-body"><span class="opt-title">Ohne Betreuung</span>
+            <span class="opt-desc">Sie übernehmen Wartung &amp; Sicherheit selbst. Später jederzeit dazubuchbar.</span></span>
+          <span class="opt-price">0 €</span>
+        </label>
+      </div>
+    </section>
+
+    <!-- STEP 4 -->
+    <section class="step">
+      <h2><span class="n">4</span> Marketing &amp; Wachstum <span class="tag">optional</span></h2>
+      <p class="hint">Mehr Sichtbarkeit und Anfragen – wenn Sie bereit sind, den nächsten Schritt zu gehen.
+        Auswahl per Klick, erneuter Klick wählt wieder ab.</p>
+
+      <h3>Social-Media-Management</h3>
+      <div class="grid">
+        <label class="opt radio">
+          <input type="radio" name="social" data-price="249" data-period="month">
+          <span class="box"></span>
+          <span class="opt-body"><span class="opt-title">Social Starter</span>
+            <span class="opt-desc">Ihr Auftritt bleibt aktiv: 4 Beiträge/Monat auf 1 Kanal (z. B. Instagram), Texte + Bildgestaltung im Design Ihres Unternehmens, kurze Monatsübersicht.</span></span>
+          <span class="opt-price">249 €<small>pro Monat</small></span>
+        </label>
+        <label class="opt radio">
+          <input type="radio" name="social" data-price="449" data-period="month">
+          <span class="box"></span>
+          <span class="opt-body"><span class="opt-title">Social Business</span>
+            <span class="opt-desc">Sichtbar wachsen: 8 Beiträge/Monat inkl. Stories auf bis zu 2 Kanälen, wir behalten Kommentare &amp; Nachrichten im Blick, monatliche Auswertung mit Empfehlungen.</span></span>
+          <span class="opt-price">449 €<small>pro Monat</small></span>
+        </label>
+        <label class="opt radio">
+          <input type="radio" name="social" data-price="749" data-period="month">
+          <span class="box"></span>
+          <span class="opt-body"><span class="opt-title">Social Premium</span>
+            <span class="opt-desc">Ihr Kanal als Kundenmagnet: 12 Beiträge/Monat inkl. Reels auf 2–3 Kanälen, aktives Community-Management, Strategiegespräch jedes Quartal.</span></span>
+          <span class="opt-price">749 €<small>pro Monat</small></span>
+        </label>
+        <label class="opt">
+          <input type="checkbox" data-price="199">
+          <span class="box"></span>
+          <span class="opt-body"><span class="opt-title">Kanal-Setup (einmalig)</span>
+            <span class="opt-desc">Profile professionell einrichten: Logo, Beschreibung, Design-Vorlagen für Beiträge, Startplan für den ersten Monat.</span></span>
+          <span class="opt-price">+199 €</span>
+        </label>
+      </div>
+
+      <h3>Werbekampagnen / Ads (Google &amp; Meta)</h3>
+      <div class="budget-row no-print-input">
+        <label for="adsBudget">Ihr monatliches Werbebudget:</label>
+        <input type="number" id="adsBudget" min="300" step="50" value="500">
+        <span class="per">€ / Monat (mind. 300 €) – geht direkt an Google/Meta</span>
+      </div>
+      <div class="grid">
+        <label class="opt radio">
+          <input type="radio" name="ads" value="basic" data-rate="0.15" data-min="199" data-period="month">
+          <span class="box"></span>
+          <span class="opt-body"><span class="opt-title">Ads Basic</span>
+            <span class="opt-desc">1 Kanal (Google <em>oder</em> Meta): Kampagne betreuen, laufend optimieren, Monats-Reporting. Betreuung: 15 % Ihres Werbebudgets, mind. 199 €.</span></span>
+          <span class="opt-price"><span class="fee-val">199 €</span><small>pro Monat</small></span>
+        </label>
+        <label class="opt radio">
+          <input type="radio" name="ads" value="business" data-rate="0.15" data-min="349" data-period="month">
+          <span class="box"></span>
+          <span class="opt-body"><span class="opt-title">Ads Business</span>
+            <span class="opt-desc">Google + Meta parallel: A/B-Anzeigen, laufende Optimierung, Monats-Reporting. Betreuung: 15 % Ihres Werbebudgets, mind. 349 €.</span></span>
+          <span class="opt-price"><span class="fee-val">349 €</span><small>pro Monat</small></span>
+        </label>
+        <label class="opt">
+          <input type="checkbox" id="mod-adsetup" data-price="399">
+          <span class="box"></span>
+          <span class="opt-body"><span class="opt-title">Kampagnen-Setup (einmalig)</span>
+            <span class="opt-desc">Werbekonto, Conversion-Tracking, erste Kampagne aufsetzen. <em>Auf JaFa-Websites: benötigt Tracking &amp; Analytics.</em></span></span>
+          <span class="opt-price">ab +399 €</span>
+        </label>
+      </div>
+      <div class="warnmsg" id="adsWarn">Hinweis: Für das <strong>Kampagnen-Setup</strong> auf Ihrer neuen
+        Website brauchen wir <strong>Tracking &amp; Analytics</strong> (Schritt 2) – bitte zusätzlich auswählen.</div>
+      <div class="note budget"><strong>So rechnen wir ab:</strong> Ihr Werbebudget zahlen Sie direkt an
+        Google/Meta. Unsere Betreuung kostet <strong>15 % des Budgets</strong> (mit Mindestbetrag) –
+        so wachsen unsere Kosten fair mit Ihrem Erfolg. Keine Erfolgsgarantie, monatlich kündbar.</div>
+
+      <h3>KI-Automatisierung</h3>
+      <div class="grid">
+        <label class="opt">
+          <input type="checkbox" data-price="199">
+          <span class="box"></span>
+          <span class="opt-body"><span class="opt-title">KI-Automatisierungs-Check (einmalig)</span>
+            <span class="opt-desc">Wir schauen uns Ihre Abläufe an und bauen direkt einen funktionierenden Prototyp – z. B. automatische WhatsApp-Antworten, Anfragen-Vorsortierung oder automatische Bewertungs-Nachfragen.</span></span>
+          <span class="opt-price">ab +199 €</span>
+        </label>
+        <label class="opt">
+          <input type="checkbox" data-price="0">
+          <span class="box"></span>
+          <span class="opt-body"><span class="opt-title">Automatisierungs-Projekt</span>
+            <span class="opt-desc">Größere Automatisierung nach Maß (z. B. Angebots-E-Mails, Termin-Workflows, interne Abläufe) – Umfang und Preis nach kostenlosem Erstgespräch.</span></span>
+          <span class="opt-price">auf Anfrage</span>
+        </label>
+        <label class="opt radio">
+          <input type="radio" name="ki" data-price="79" data-period="month">
+          <span class="box"></span>
+          <span class="opt-body"><span class="opt-title">KI-Betreuung Basic</span>
+            <span class="opt-desc">Ihre Automatisierungen laufen zuverlässig: Überwachung, Fehlerbehebung, 1 Anpassung pro Monat.</span></span>
+          <span class="opt-price">79 €<small>pro Monat</small></span>
+        </label>
+        <label class="opt radio">
+          <input type="radio" name="ki" data-price="149" data-period="month">
+          <span class="box"></span>
+          <span class="opt-body"><span class="opt-title">KI-Betreuung Business</span>
+            <span class="opt-desc">Bis 3 Anpassungen/Monat, laufende Erweiterungen um neue Automatisierungen, bevorzugter Support.</span></span>
+          <span class="opt-price">149 €<small>pro Monat</small></span>
+        </label>
+      </div>
+    </section>
+
+    <!-- Print-only summary -->
+    <div id="printSummary">
+      <div class="ps-head">Ihre Zusammenstellung</div>
+      <div class="ps-body">
+        <div><div class="lbl">Einmalig</div><div class="val" id="psOnce">–</div></div>
+        <div><div class="lbl">Monatlich</div><div class="val" id="psMonth">–</div></div>
+        <div id="psBudgetWrap" style="display:none"><div class="lbl">zzgl. Werbebudget</div><div class="val" id="psBudget">–</div></div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="cta">Bereit für den nächsten Schritt? Sprechen Sie uns an – wir stellen Ihr individuelles Angebot zusammen.</div>
+    <span class="brand2">JaFa Systems</span> &middot; Websites, SEO, Support &amp; KI-Automatisierung für lokale Unternehmen.<br>
+    Alle Preise sind unverbindliche Richtwerte („ab"-Preise) zzgl. ggf. anfallender USt. und ersetzen kein
+    individuelles Angebot. Laufende Leistungen sind monatlich kündbar, sofern nicht anders vereinbart.
+  </footer>
+</div>
+
+<!-- Sticky live sum (screen only) -->
+<div class="sumbar no-print">
+  <div class="sumbar-inner">
+    <div class="totals">
+      <div class="t"><div class="lbl">Einmalig</div><div class="val" id="sumOnce">0 €</div></div>
+      <div class="t"><div class="lbl">Monatlich</div><div class="val" id="sumMonth">0 €<small> / Monat</small></div></div>
+      <div class="t small" id="sumBudgetWrap" style="display:none"><div class="lbl">zzgl. Werbebudget</div><div class="val" id="sumBudget">–</div></div>
+    </div>
+    <div class="actions">
+      <button class="btn reset" id="btnReset" type="button">Zurücksetzen</button>
+      <button class="btn print" id="btnPrint" type="button">Als PDF speichern</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var fmt = function(n){ return Math.round(n).toLocaleString('de-DE') + ' €'; };
+
+  // Was ist bei welcher Basis bereits inklusive? (Hosting wird separat behandelt: Abo-abhängig)
+  var INCLUDES = {
+    lp:    ['legal','email','gallery','reviews'],
+    biz:   ['legal','email','gallery','reviews'],
+    prem:  ['legal','email','seo','gallery','reviews'],
+    shop:  ['legal','email','seo','gallery','reviews'],
+    custom:['legal','email','seo','gallery','reviews'],
+    none:  []
+  };
+  var BUNDLE = ['seo','local','perf'];              // SEO-Komplettpaket
+  var BUNDLE_OFF = 0.9;                             // -10 %
+  var FNI = ['page','booking','form','multi'];      // "Funktionen & Inhalte" (Gratis-Wahl)
+  var FREE_PICK = { biz:true, prem:true };          // 1 F&I-Modul gratis
+  var HOSTING_FEE = 40;                             // Einrichtungspauschale ohne Abo
+
+  var inputs = Array.prototype.slice.call(document.querySelectorAll('input[data-price],input[data-prices],input[data-rate]'));
+  var modCards = {}; // key -> card element
+  Array.prototype.forEach.call(document.querySelectorAll('.opt[data-mod]'), function(c){ modCards[c.getAttribute('data-mod')] = c; });
+
+  var bundleInput = document.getElementById('mod-bundle');
+  var cookie = document.getElementById('mod-cookie');
+  var track = document.getElementById('mod-track');
+  var adsetup = document.getElementById('mod-adsetup');
+  var budgetInput = document.getElementById('adsBudget');
+
+  function baseKey(){
+    var b = document.querySelector('input[name="base"]:checked');
+    return b ? b.value : 'biz';
+  }
+  function modPrice(card, base){
+    var sel = card.querySelector('select.varsel');
+    if(sel){ return parseFloat(sel.options[sel.selectedIndex].getAttribute('data-price')) || 0; }
+    var inp = card.querySelector('input');
+    var pj = inp.getAttribute('data-prices');
+    if(pj){ var map = JSON.parse(pj); return (map[base] != null ? map[base] : map.none) || 0; }
+    return parseFloat(inp.getAttribute('data-price')) || 0;
+  }
+  function setCardState(key, state, priceHtml){ // state: '', 'inc'
+    var card = modCards[key]; if(!card) return;
+    card.classList.toggle('inc', state === 'inc');
+    var pe = card.querySelector('.opt-price');
+    if(priceHtml != null) pe.innerHTML = priceHtml;
+  }
+
+  function recalc(){
+    var base = baseKey();
+    var included = INCLUDES[base] || [];
+    var once = 0, month = 0;
+
+    // Basis-Preis
+    var baseInp = document.querySelector('input[name="base"]:checked');
+    if(baseInp) once += parseFloat(baseInp.getAttribute('data-price')) || 0;
+
+    // Bundle-Preis dynamisch: 10 % auf alle Komponenten, die nicht schon inklusive sind
+    var bundleComps = BUNDLE.filter(function(k){ return included.indexOf(k) < 0; });
+    var bundleFull = bundleComps.reduce(function(s,k){ return s + modPrice(modCards[k], base); }, 0);
+    var bundlePrice = Math.round(bundleFull * BUNDLE_OFF);
+    document.getElementById('bundlePrice').textContent = '+' + fmt(bundlePrice).replace(' ',' ');
+    document.getElementById('bundleWas').textContent = 'statt ' + fmt(bundleFull);
+    if(bundleInput.checked) once += bundlePrice;
+
+    var inBundle = bundleInput.checked ? bundleComps : [];
+
+    // Module: Zustand + Preise (Hosting separat, s. u.)
+    var fniChecked = [];
+    Object.keys(modCards).forEach(function(key){
+      if(key === 'hosting') return;
+      var card = modCards[key];
+      var inp = card.querySelector('input');
+      var p = modPrice(card, base);
+      card.classList.remove('free-pick');
+      if(included.indexOf(key) >= 0){
+        setCardState(key, 'inc', 'inklusive');
+      } else if(inBundle.indexOf(key) >= 0){
+        setCardState(key, 'inc', 'im Paket');
+      } else {
+        setCardState(key, '', '+' + fmt(p));
+        if(inp.checked){
+          once += p;
+          if(FREE_PICK[base] && FNI.indexOf(key) >= 0) fniChecked.push({ key: key, p: p });
+        }
+      }
+    });
+
+    // 1 Gratis-Modul aus "Funktionen & Inhalte" bei Business/Premium (günstigstes ausgewähltes)
+    if(fniChecked.length){
+      fniChecked.sort(function(a,b){ return a.p - b.p; });
+      once -= fniChecked[0].p;
+      var freeCard = modCards[fniChecked[0].key];
+      freeCard.classList.add('free-pick');
+      freeCard.querySelector('.opt-price').innerHTML = 'gratis<small>Ihr Inklusiv-Modul</small>';
+    }
+
+    // Hosting-Einrichtung: mit Betreuungs-Abo inklusive, sonst Pauschale (bei neuer Website Pflicht)
+    var careSel = document.querySelector('input[name="care"]:checked');
+    var hasAbo = !!(careSel && (parseFloat(careSel.getAttribute('data-price')) || 0) > 0);
+    var hostCard = modCards['hosting'];
+    hostCard.classList.remove('inc','fee','free-pick');
+    if(base !== 'none'){
+      if(hasAbo){
+        hostCard.classList.add('inc');
+        hostCard.querySelector('.opt-price').innerHTML = 'inklusive';
+      } else {
+        hostCard.classList.add('fee');
+        hostCard.querySelector('.opt-price').innerHTML = '+' + fmt(HOSTING_FEE) + '<small>Pauschale ohne Abo</small>';
+        once += HOSTING_FEE;
+      }
+    } else {
+      hostCard.querySelector('.opt-price').innerHTML = '+' + fmt(HOSTING_FEE);
+      if(hostCard.querySelector('input').checked) once += HOSTING_FEE;
+    }
+
+    // Übrige Inputs ohne data-mod-Karte (Betreuung, Social, Ads, KI, Setups)
+    inputs.forEach(function(el){
+      if(el.closest('.opt[data-mod]') || el === bundleInput) return;
+      if(el.name === 'base') return;           // Basis-Preis wurde oben schon gezählt
+      if(el.getAttribute('data-rate')) return; // Ads-Fee separat
+      if(el.checked){
+        var p = parseFloat(el.getAttribute('data-price')) || 0;
+        if(el.getAttribute('data-period') === 'month') month += p; else once += p;
+      }
+    });
+
+    // Ads-Fee: Prozent vom Budget mit Mindestbetrag
+    var budget = Math.max(300, parseFloat(budgetInput.value) || 300);
+    var adsSel = document.querySelector('input[name="ads"]:checked');
+    Array.prototype.forEach.call(document.querySelectorAll('input[name="ads"]'), function(el){
+      var fee = Math.max(parseFloat(el.getAttribute('data-min')), budget * parseFloat(el.getAttribute('data-rate')));
+      el.closest('.opt').querySelector('.fee-val').textContent = fmt(fee);
+    });
+    var adsActive = !!adsSel;
+    if(adsSel){
+      month += Math.max(parseFloat(adsSel.getAttribute('data-min')), budget * parseFloat(adsSel.getAttribute('data-rate')));
+    }
+
+    // Summen anzeigen
+    document.getElementById('sumOnce').textContent = fmt(once);
+    document.getElementById('sumMonth').innerHTML = fmt(month) + '<small> / Monat</small>';
+    document.getElementById('psOnce').textContent = fmt(once);
+    document.getElementById('psMonth').textContent = fmt(month) + ' / Monat';
+    document.getElementById('sumBudgetWrap').style.display = adsActive ? '' : 'none';
+    document.getElementById('sumBudget').textContent = fmt(budget) + ' / Monat';
+    document.getElementById('psBudgetWrap').style.display = adsActive ? '' : 'none';
+    document.getElementById('psBudget').textContent = fmt(budget) + ' / Monat';
+
+    // Abhängigkeit: Tracking braucht Cookie-Banner
+    var needCookie = track.checked && !cookie.checked && included.indexOf('cookie') < 0;
+    document.getElementById('opt-cookie').classList.toggle('warn', needCookie);
+    document.getElementById('cookieWarn').classList.toggle('show', needCookie);
+
+    // Abhängigkeit: Kampagnen-Setup braucht Tracking (außer bei bestehender Fremd-Website)
+    var needTrack = adsetup.checked && base !== 'none' && !track.checked;
+    document.getElementById('adsWarn').classList.toggle('show', needTrack);
+  }
+
+  inputs.forEach(function(el){ el.addEventListener('change', recalc); });
+  bundleInput.addEventListener('change', recalc);
+  budgetInput.addEventListener('input', recalc);
+  Array.prototype.forEach.call(document.querySelectorAll('select.varsel'), function(s){
+    s.addEventListener('change', recalc);
+    s.addEventListener('click', function(e){ e.stopPropagation(); });
+  });
+
+  // Radios in Social/Ads/KI sind per erneutem Klick abwählbar
+  ['social','ads','ki'].forEach(function(name){
+    Array.prototype.forEach.call(document.querySelectorAll('input[name="'+name+'"]'), function(el){
+      el.dataset.prev = el.checked ? '1' : '0';
+      el.addEventListener('click', function(){
+        if(this.dataset.prev === '1'){
+          this.checked = false; this.dataset.prev = '0'; recalc();
+        } else {
+          document.querySelectorAll('input[name="'+name+'"]').forEach(function(x){ x.dataset.prev = '0'; });
+          this.dataset.prev = '1';
+        }
+      });
+    });
+  });
+
+  document.getElementById('btnReset').addEventListener('click', function(){
+    Array.prototype.forEach.call(document.querySelectorAll('input[type="checkbox"]'), function(el){ el.checked = false; });
+    var b = document.querySelector('input[name="base"][value="biz"]'); if(b) b.checked = true;
+    var c = document.querySelector('input[name="care"][data-price="79"]'); if(c) c.checked = true;
+    ['social','ads','ki'].forEach(function(name){
+      document.querySelectorAll('input[name="'+name+'"]').forEach(function(x){ x.checked = false; x.dataset.prev = '0'; });
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('select.varsel'), function(s){ s.selectedIndex = 0; });
+    budgetInput.value = 500;
+    recalc();
+  });
+
+  document.getElementById('btnPrint').addEventListener('click', function(){ window.print(); });
+
+  recalc();
+})();
+</script>
+</body>
+</html>
