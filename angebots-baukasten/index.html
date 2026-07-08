@@ -253,7 +253,7 @@ footer .cta{color:#000956;font-weight:700;font-size:13px;margin-bottom:6px}
 
       <h3>Funktionen &amp; Inhalte</h3>
       <p class="hint">Bei Business- und Premium-Website ist <strong>1 Modul aus diesem Block gratis</strong> –
-        das günstigste ausgewählte wird automatisch abgezogen.</p>
+        das teuerste ausgewählte wird automatisch abgezogen.</p>
       <div class="grid">
         <label class="opt" data-mod="page">
           <input type="checkbox" data-price="149">
@@ -378,9 +378,10 @@ footer .cta{color:#000956;font-weight:700;font-size:13px;margin-bottom:6px}
           <span class="opt-body"><span class="opt-title">Visitenkarten mit QR-Code</span>
             <span class="opt-desc">Individuelles Design im Firmen-Look, QR-Code zu Website oder Google-Profil – inkl. Druck &amp; Lieferung.</span>
             <select class="varsel">
-              <option data-price="55" selected>250 Stück – 55 €</option>
-              <option data-price="75">500 Stück – 75 €</option>
-              <option data-price="105">1.000 Stück – 105 €</option>
+              <option data-price="55" selected>100 Stück – 55 €</option>
+              <option data-price="59">250 Stück – 59 €</option>
+              <option data-price="64">500 Stück – 64 €</option>
+              <option data-price="70">1.000 Stück – 70 €</option>
             </select></span>
           <span class="opt-price">+55 €</span>
         </label>
@@ -660,9 +661,9 @@ footer .cta{color:#000956;font-weight:700;font-size:13px;margin-bottom:6px}
       }
     });
 
-    // 1 Gratis-Modul aus "Funktionen & Inhalte" bei Business/Premium (günstigstes ausgewähltes)
+    // 1 Gratis-Modul aus "Funktionen & Inhalte" bei Business/Premium (teuerstes ausgewähltes = kundenfreundlich)
     if(fniChecked.length){
-      fniChecked.sort(function(a,b){ return a.p - b.p; });
+      fniChecked.sort(function(a,b){ return b.p - a.p; });
       once -= fniChecked[0].p;
       var freeCard = modCards[fniChecked[0].key];
       freeCard.classList.add('free-pick');
