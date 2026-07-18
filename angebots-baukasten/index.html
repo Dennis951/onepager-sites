@@ -80,6 +80,14 @@ h3{font-size:14px;color:#3e29ae;margin:18px 0 4px;font-weight:700}
 .budget-row input{font-family:inherit;font-size:14px;font-weight:700;color:#000956;border:1px solid #c3ccd8;border-radius:8px;padding:7px 10px;width:110px}
 .budget-row .per{color:#6b7280;font-size:12px}
 
+/* Zahlweise-Slider */
+.payslider{background:#f8fafc;border:1px solid #e9eef5;border-radius:14px;padding:16px 18px 12px;margin:12px 0}
+.payslider input[type=range]{width:100%;accent-color:#3e29ae;height:26px;cursor:pointer;margin:0}
+.paylabels{display:flex;justify-content:space-between;font-size:12px;color:#6b7280;font-weight:600;margin-top:6px}
+.paylabels span{cursor:pointer;padding:3px 10px;border-radius:999px}
+.paylabels span.on{color:#fff;background:linear-gradient(135deg,#3e29ae,#bf0fc9);font-weight:800}
+#payInfo strong{color:#000956}
+
 /* Print summary (hidden on screen) */
 #printSummary{display:none}
 
@@ -539,13 +547,30 @@ footer .cta{color:#000956;font-weight:700;font-size:13px;margin-bottom:6px}
       </div>
     </section>
 
+    <!-- STEP 5 -->
+    <section class="step">
+      <h2><span class="n">5</span> Zahlweise wählen</h2>
+      <p class="hint">Sie entscheiden, wie Sie den einmaligen Projektpreis bezahlen – auf Wunsch auch bequem in Raten oder komplett monatlich.</p>
+      <div class="payslider">
+        <input type="range" id="payMode" min="0" max="2" step="1" value="0" class="no-print" aria-label="Zahlweise">
+        <div class="paylabels">
+          <span data-pm="0" class="on">Einmalzahlung</span>
+          <span data-pm="1">Anzahlung + Raten</span>
+          <span data-pm="2">Komplett monatlich</span>
+        </div>
+      </div>
+      <div class="note" id="payInfo"></div>
+    </section>
+
     <!-- Print-only summary -->
     <div id="printSummary">
       <div class="ps-head">Ihre Zusammenstellung</div>
       <div class="ps-body">
-        <div><div class="lbl">Einmalig</div><div class="val" id="psOnce">–</div></div>
+        <div><div class="lbl" id="psOnceLbl">Einmalig</div><div class="val" id="psOnce">–</div></div>
         <div><div class="lbl">Monatlich</div><div class="val" id="psMonth">–</div></div>
+        <div id="psRateWrap" style="display:none"><div class="lbl">davon Projektrate</div><div class="val" id="psRate">–</div></div>
         <div id="psBudgetWrap" style="display:none"><div class="lbl">zzgl. Werbebudget</div><div class="val" id="psBudget">–</div></div>
+        <div style="flex-basis:100%"><div class="lbl">Zahlweise</div><div class="val" id="psPay" style="font-size:12px">–</div></div>
       </div>
     </div>
   </main>
@@ -562,8 +587,9 @@ footer .cta{color:#000956;font-weight:700;font-size:13px;margin-bottom:6px}
 <div class="sumbar no-print">
   <div class="sumbar-inner">
     <div class="totals">
-      <div class="t"><div class="lbl">Einmalig</div><div class="val" id="sumOnce">0 €</div></div>
+      <div class="t"><div class="lbl" id="sumOnceLbl">Einmalig</div><div class="val" id="sumOnce">0 €</div></div>
       <div class="t"><div class="lbl">Monatlich</div><div class="val" id="sumMonth">0 €<small> / Monat</small></div></div>
+      <div class="t small" id="sumRateWrap" style="display:none"><div class="lbl">davon Projektrate</div><div class="val" id="sumRate">–</div></div>
       <div class="t small" id="sumBudgetWrap" style="display:none"><div class="lbl">zzgl. Werbebudget</div><div class="val" id="sumBudget">–</div></div>
     </div>
     <div class="actions">
@@ -601,6 +627,14 @@ footer .cta{color:#000956;font-weight:700;font-size:13px;margin-bottom:6px}
   var track = document.getElementById('mod-track');
   var adsetup = document.getElementById('mod-adsetup');
   var budgetInput = document.getElementById('adsBudget');
+  var payModeInput = document.getElementById('payMode');
+
+  // Zahlweisen für den einmaligen Projektpreis (Richtwerte)
+  var PAY = [
+    { name: 'Einmalzahlung',       deposit: 1,    months: 0,  fee: 1    },
+    { name: 'Anzahlung + Raten',   deposit: 0.30, months: 12, fee: 1.10 }, // 30 % heute, Rest +10 % auf 12 Raten
+    { name: 'Komplett monatlich',  deposit: 0,    months: 24, fee: 1.20 }  // 0 € heute, Summe +20 % auf 24 Raten
+  ];
 
   function baseKey(){
     var b = document.querySelector('input[name="base"]:checked');
@@ -712,11 +746,43 @@ footer .cta{color:#000956;font-weight:700;font-size:13px;margin-bottom:6px}
       month += Math.max(parseFloat(adsSel.getAttribute('data-min')), budget * parseFloat(adsSel.getAttribute('data-rate')));
     }
 
+    // Zahlweise auf den einmaligen Projektpreis anwenden
+    var pm = parseInt(payModeInput.value, 10) || 0;
+    var conf = PAY[pm];
+    var payOnce = once, rate = 0;
+    if(pm > 0 && once > 0){
+      payOnce = Math.round(once * conf.deposit);
+      rate = Math.ceil(((once - payOnce) * conf.fee) / conf.months);
+    }
+    var monthTotal = month + rate;
+
+    // Slider-Labels + Erklärtext
+    document.querySelectorAll('.paylabels span').forEach(function(s){
+      s.classList.toggle('on', parseInt(s.getAttribute('data-pm'), 10) === pm);
+    });
+    var payTexts = [
+      'Sie zahlen den Projektpreis <strong>einmalig bei Fertigstellung</strong>. Monatlich laufen nur Ihre gewählten Betreuungs- und Marketing-Pakete.',
+      '<strong>30 % Anzahlung heute (' + fmt(payOnce) + ')</strong>, der Rest bequem in <strong>12 Monatsraten à ' + fmt(rate) + '</strong> (inkl. 10 % Ratenaufschlag).',
+      '<strong>Keine Anzahlung:</strong> Ihr komplettes Projekt für <strong>' + fmt(rate) + ' / Monat über 24 Monate</strong> (inkl. 20 % Aufschlag, Mindestlaufzeit 24 Monate).'
+    ];
+    document.getElementById('payInfo').innerHTML = (once > 0 || pm === 0)
+      ? payTexts[pm]
+      : 'Aktuell sind keine einmaligen Posten ausgewählt – die Zahlweise betrifft nur den einmaligen Projektpreis.';
+
     // Summen anzeigen
-    document.getElementById('sumOnce').textContent = fmt(once);
-    document.getElementById('sumMonth').innerHTML = fmt(month) + '<small> / Monat</small>';
-    document.getElementById('psOnce').textContent = fmt(once);
-    document.getElementById('psMonth').textContent = fmt(month) + ' / Monat';
+    var onceLbl = pm === 1 ? 'Anzahlung (30 %)' : 'Einmalig';
+    document.getElementById('sumOnceLbl').textContent = onceLbl;
+    document.getElementById('psOnceLbl').textContent = onceLbl;
+    document.getElementById('sumOnce').textContent = fmt(payOnce);
+    document.getElementById('sumMonth').innerHTML = fmt(monthTotal) + '<small> / Monat</small>';
+    document.getElementById('psOnce').textContent = fmt(payOnce);
+    document.getElementById('psMonth').textContent = fmt(monthTotal) + ' / Monat';
+    var rateTxt = fmt(rate) + ' × ' + conf.months + ' Monate';
+    document.getElementById('sumRateWrap').style.display = rate > 0 ? '' : 'none';
+    document.getElementById('sumRate').textContent = rateTxt;
+    document.getElementById('psRateWrap').style.display = rate > 0 ? '' : 'none';
+    document.getElementById('psRate').textContent = rateTxt;
+    document.getElementById('psPay').textContent = conf.name + (pm === 1 ? ' (30 % / 12 Raten, +10 %)' : (pm === 2 ? ' (24 Raten, +20 %, Mindestlaufzeit)' : ''));
     document.getElementById('sumBudgetWrap').style.display = adsActive ? '' : 'none';
     document.getElementById('sumBudget').textContent = fmt(budget) + ' / Monat';
     document.getElementById('psBudgetWrap').style.display = adsActive ? '' : 'none';
@@ -735,6 +801,10 @@ footer .cta{color:#000956;font-weight:700;font-size:13px;margin-bottom:6px}
   inputs.forEach(function(el){ el.addEventListener('change', recalc); });
   bundleInput.addEventListener('change', recalc);
   budgetInput.addEventListener('input', recalc);
+  payModeInput.addEventListener('input', recalc);
+  document.querySelectorAll('.paylabels span').forEach(function(s){
+    s.addEventListener('click', function(){ payModeInput.value = this.getAttribute('data-pm'); recalc(); });
+  });
   Array.prototype.forEach.call(document.querySelectorAll('select.varsel'), function(s){
     s.addEventListener('change', recalc);
     s.addEventListener('click', function(e){ e.stopPropagation(); });
@@ -764,6 +834,7 @@ footer .cta{color:#000956;font-weight:700;font-size:13px;margin-bottom:6px}
     });
     Array.prototype.forEach.call(document.querySelectorAll('select.varsel'), function(s){ s.selectedIndex = 0; });
     budgetInput.value = 500;
+    payModeInput.value = 0;
     recalc();
   });
 
