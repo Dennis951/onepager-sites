@@ -843,5 +843,29 @@ footer .cta{color:#000956;font-weight:700;font-size:13px;margin-bottom:6px}
   recalc();
 })();
 </script>
+<script>
+/* Einbettung: meldet die eigene Hoehe an die Elternseite (Webflow-iframe), damit dort kein
+   zweiter Scrollbalken entsteht. Ohne Elternseite passiert nichts. */
+(function () {
+  if (window.parent === window) return;
+  var last = 0;
+  function report() {
+    // Inhaltshoehe des body messen, NICHT scrollHeight: das waere die iframe-Viewporthoehe
+    // und koennte dadurch nur noch wachsen (Rueckkopplung), nie wieder schrumpfen.
+    var b = document.body, cs = getComputedStyle(b);
+    var h = Math.ceil(b.getBoundingClientRect().height + parseFloat(cs.marginTop || 0) + parseFloat(cs.marginBottom || 0));
+    if (Math.abs(h - last) < 8) return;
+    last = h;
+    window.parent.postMessage({ type: 'jafa-baukasten-height', height: h }, '*');
+  }
+  window.addEventListener('load', report);
+  window.addEventListener('resize', report);
+  document.addEventListener('change', function () { setTimeout(report, 60); });
+  document.addEventListener('input', function () { setTimeout(report, 60); });
+  if (window.ResizeObserver) new ResizeObserver(report).observe(document.documentElement);
+  setInterval(report, 700);   // Sicherheitsnetz: meldet nur bei echter Aenderung (>= 8px)
+  setTimeout(report, 200);
+})();
+</script>
 </body>
 </html>
