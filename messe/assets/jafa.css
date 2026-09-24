@@ -11,6 +11,10 @@
 }
 
 :root {
+  color-scheme: light;
+  --page-bg: #ffffff;
+  --head-bg: rgba(255, 255, 255, 0.92);
+
   --color-ink: #010b15;
   --color-ink-soft: #1d2433;
   --color-muted: #667085;
@@ -59,6 +63,35 @@
   --space-20: 80px;
 }
 
+/* Dunkelmodus — dieselben Werte und derselbe Mechanismus wie auf www.jafasystems.de
+   (jafa-theme/assets/css/color-mode.css): Attribut data-theme am <html>-Element,
+   Merker im localStorage unter "jafa-color-mode". */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page-bg: #0b111e;
+  --head-bg: rgba(15, 22, 37, 0.92);
+
+  --color-ink: #f1f3fc;
+  --color-ink-soft: #dbe0ef;
+  --color-muted: #b5bfd2;
+  --color-brand: #b7a6ff;
+  --color-brand-strong: #ddd5ff;
+  --color-brand-blue: #66d4ff;
+  --color-brand-purple: #caa6f0;
+  --color-brand-magenta: #ec9bf2;
+  --color-white: #151c2d;
+  --color-surface: #0f1625;
+  --color-surface-warm: #1b2036;
+  --color-surface-strong: #252d45;
+  --color-line: #303b52;
+  --color-line-strong: #54627d;
+  --color-success: #73dbb2;
+  --color-accent-soft: #322638;
+  --gradient-text: linear-gradient(90deg, #f0f2ff, #c2adff);
+  --shadow-soft: 0 16px 45px rgba(0, 0, 0, 0.22);
+  --shadow-lift: 0 18px 46px rgba(0, 0, 0, 0.28);
+}
+
 *,
 *::before,
 *::after { box-sizing: border-box; }
@@ -70,7 +103,7 @@ html {
 
 body {
   margin: 0;
-  background: var(--color-white);
+  background: var(--page-bg);
   color: var(--color-ink);
   font-family: var(--font-sans);
   font-size: 1.05rem;               /* Messe-Abstand: Fließtext nie kleiner */
@@ -109,9 +142,32 @@ a { color: var(--color-brand); }
   justify-content: space-between;
   gap: var(--space-4);
   padding: var(--space-4) max(20px, calc((100vw - 1180px) / 2));
-  background: rgba(255, 255, 255, 0.92);
+  background: var(--head-bg);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--color-line);
+}
+
+/* Umschalter wie im Theme: 44er-Kreis, Sonne im Dunkelmodus, Mond im Hellmodus */
+.theme-toggle {
+  display: inline-grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  border: 1px solid var(--color-line);
+  border-radius: 50%;
+  background: var(--color-white);
+  color: var(--color-ink);
+  font-size: 1.15rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.theme-toggle .icon-dark { display: none; }
+:root[data-theme="dark"] .theme-toggle .icon-dark { display: block; }
+:root[data-theme="dark"] .theme-toggle .icon-light { display: none; }
+
+@media (hover: hover) {
+  .theme-toggle:hover { border-color: var(--color-brand); color: var(--color-brand); }
 }
 
 /* Es gibt keine Logodatei — die Wortmarke ist laut company/brand-facts.md

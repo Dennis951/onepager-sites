@@ -3,6 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+  /* Farbmodus vor dem ersten Rendern setzen — gleiche Logik wie auf www.jafasystems.de. */
+  (function () {
+    var choice = null;
+    try { choice = localStorage.getItem('jafa-color-mode'); } catch (e) {}
+    var dark = choice === 'dark' || (choice !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+  })();
+</script>
 <meta name="robots" content="noindex,nofollow">
 <title>JaFa Systems – So arbeiten wir</title>
 <meta name="description" content="Einblick in die Arbeitszentrale von JaFa Systems: KI-Agenten für Recherche, Planung und Entwürfe — jeder Schritt mit Freigabe.">
@@ -280,6 +289,11 @@
   <nav class="head-links">
     <a class="btn btn-quiet" href="../leistungen/index.html">Leistungen</a>
     <a class="btn btn-ghost" href="../index.html">Übersicht</a>
+    <button type="button" class="theme-toggle" data-theme-toggle aria-pressed="false"
+            aria-label="Dunkelmodus einschalten" title="Dunkelmodus einschalten">
+      <span class="icon-light" aria-hidden="true">🌙</span>
+      <span class="icon-dark" aria-hidden="true">☀️</span>
+    </button>
   </nav>
 </header>
 
@@ -781,6 +795,8 @@
     });
   })();
 </script>
+
+<script src="../assets/theme.js" defer></script>
 
 </body>
 </html>

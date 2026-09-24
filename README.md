@@ -3,6 +3,25 @@
 Hosting-Repo für die vom **OnePager-Design-Agenten** (agent-hub) erzeugten Kundenseiten.
 Gemeinsam genutzt von Dennis & Ogulcan (JaFa Systems).
 
+## 🎪 Messe (Laptop & iPad)
+
+Zum Vorzeigen unterwegs — der Agent-Hub läuft nur lokal und kann nicht mit.
+**Diese eine Adresse eintippen, der Rest ist verlinkt:**
+
+**➡️ https://dennis951.github.io/onepager-sites/messe/**
+
+| Seite | Link | Was drin ist |
+|---|---|---|
+| So arbeiten wir | [/messe/agent-hub/](https://dennis951.github.io/onepager-sites/messe/agent-hub/) | klickbare Agent-Hub-Demo (Dashboard, CRM, PM, Automatisierung) |
+| Leistungen | [/messe/leistungen/](https://dennis951.github.io/onepager-sites/messe/leistungen/) | sechs Leistungen, Ablauf, Betreuungsstufen — **ohne Preise** |
+| Angebot | [/angebots-baukasten/](https://dennis951.github.io/onepager-sites/angebots-baukasten/) | Konfigurator mit Preisen, bewusst erst im Gespräch |
+
+Hell- und Dunkelmodus schalten sich nach dem Gerät; der Knopf oben rechts überschreibt das.
+Die Demo enthält **ausschließlich frei erfundene Betriebe** und ist als „Demo-Ansicht"
+gekennzeichnet — echte Leads oder Kundendaten gehören dort nicht hinein.
+Quellen: `messe/` in diesem Repo, Hintergrund in der KB unter
+`marketing/marketing-overview.md`.
+
 <!-- ONEPAGER-LIST:START -->
 ## Veröffentlichte OnePager (5)
 
