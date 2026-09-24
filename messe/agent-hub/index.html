@@ -1,0 +1,786 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>JaFa Systems – So arbeiten wir</title>
+<meta name="description" content="Einblick in die Arbeitszentrale von JaFa Systems: KI-Agenten für Recherche, Planung und Entwürfe — jeder Schritt mit Freigabe.">
+<link rel="stylesheet" href="../assets/jafa.css">
+<style>
+  /* ---------- heller Erklärrahmen ---------- */
+  .intro { padding: var(--space-12) 0 var(--space-8); }
+  .intro h1 { max-width: 20ch; }
+  .intro .lead { max-width: 62ch; }
+
+  .points { margin-top: var(--space-8); }
+  .point { padding: var(--space-5) var(--space-6); border-left: 3px solid var(--color-brand); background: var(--color-surface); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+  .point strong { display: block; color: var(--color-brand-strong); margin-bottom: 4px; }
+  .point span { color: var(--color-ink-soft); font-size: 1rem; }
+
+  /* ---------- App-Fenster (dunkel, wie der echte Hub) ---------- */
+  .app-stage { padding: var(--space-8) 0 var(--space-16); }
+
+  .hub {
+    --bg: #010b15;
+    --bg-2: #061322;
+    --surface: rgba(12, 25, 43, 0.86);
+    --surface-strong: rgba(17, 32, 56, 0.96);
+    --surface-soft: rgba(255, 255, 255, 0.055);
+    --ink: #f5f8ff;
+    --hub-muted: #a7b6cb;
+    --line: rgba(136, 164, 196, 0.22);
+    --blue: #07a7ec;
+    --indigo: #3e29ae;
+    --violet: #8241a1;
+    --magenta: #bf0fc9;
+    --ok: #31d1a0;
+    --warn: #ffbf69;
+    --danger: #ff6b7a;
+
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--bg);
+    color: var(--ink);
+    box-shadow: 0 30px 70px rgba(1, 11, 21, 0.35);
+    border: 1px solid rgba(136, 164, 196, 0.28);
+  }
+
+  .hub-bar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: 10px 16px;
+    background: #0b1626;
+    border-bottom: 1px solid var(--line);
+  }
+  .dots { display: flex; gap: 6px; }
+  .dots i { width: 11px; height: 11px; border-radius: 50%; background: #2a3a52; }
+  .hub-url {
+    flex: 1;
+    padding: 5px 12px;
+    border-radius: 999px;
+    background: #071120;
+    border: 1px solid var(--line);
+    color: var(--hub-muted);
+    font-size: 0.86rem;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .hub-top {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    padding: var(--space-4) var(--space-5);
+    border-bottom: 1px solid var(--line);
+    background: var(--bg-2);
+  }
+  .hub-brand { font-weight: 800; font-size: 1.05rem; background: var(--gradient-brand); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .chips { display: flex; gap: 8px; flex-wrap: wrap; margin-left: auto; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 5px 11px; border-radius: 999px;
+    background: var(--surface-soft); border: 1px solid var(--line);
+    font-size: 0.82rem; font-weight: 700; color: var(--hub-muted);
+  }
+  .chip b { color: var(--ink); font-weight: 700; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); }
+  .dot-warn { background: var(--warn); }
+  .chip-demo { background: rgba(255, 191, 105, 0.16); border-color: rgba(255, 191, 105, 0.5); color: #ffd9a1; }
+
+  .hub-hero { padding: var(--space-6) var(--space-5); border-bottom: 1px solid var(--line); background: linear-gradient(135deg, rgba(7,167,236,0.13), rgba(130,65,161,0.10) 58%, rgba(191,15,201,0.08)); }
+  .hub-hero .kicker { font-size: 0.82rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #8ee8ff; }
+  .hub-hero h2 { color: var(--ink); font-size: 1.5rem; margin: 6px 0 4px; }
+  .hub-hero p { color: var(--hub-muted); font-size: 1rem; margin: 0; }
+
+  .steps { display: flex; flex-wrap: wrap; gap: 8px; margin-top: var(--space-5); }
+  .step {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 14px; border-radius: 999px;
+    background: var(--surface-strong); border: 1px solid var(--line);
+    font-size: 0.88rem; font-weight: 700;
+  }
+  .step i { width: 20px; height: 20px; display: grid; place-items: center; border-radius: 50%; background: var(--indigo); font-size: 0.72rem; font-style: normal; }
+  .step-arrow { align-self: center; color: var(--hub-muted); }
+
+  .hub-tabs {
+    display: flex; gap: 4px;
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 1px solid var(--line);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .hub-tabs::-webkit-scrollbar { display: none; }
+  .hub-tab {
+    flex: 0 0 auto;
+    min-height: 44px;
+    padding: 9px 16px;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--hub-muted);
+    font: inherit;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .hub-tab[aria-selected="true"] { background: var(--surface-strong); border-color: var(--line); color: var(--ink); }
+  .hub-tab[disabled] { opacity: 0.45; cursor: default; }
+
+  .hub-view { display: none; padding: var(--space-5); }
+  .hub-view.is-active { display: block; }
+
+  .panel {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: var(--space-5);
+  }
+  .panel h3 { color: var(--ink); font-size: 1.05rem; margin: 0 0 var(--space-4); }
+  .panel-title-row { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-3); margin-bottom: var(--space-4); }
+  .panel-title-row h3 { margin: 0; }
+  .panel-title-row span { font-size: 0.84rem; color: var(--hub-muted); }
+
+  .hub-grid { display: grid; gap: var(--space-4); }
+  @media (min-width: 860px) {
+    .hub-grid-2 { grid-template-columns: minmax(0, 1fr) minmax(0, 1.45fr); }
+    .hub-grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+
+  /* Charts */
+  .ring-wrap { position: relative; display: grid; place-items: center; }
+  .ring-center { position: absolute; text-align: center; }
+  .ring-center b { display: block; font-size: 1.7rem; font-weight: 800; line-height: 1; }
+  .ring-center span { font-size: 0.8rem; color: var(--hub-muted); }
+  .ring-legend { display: grid; gap: 8px; margin-top: var(--space-4); }
+  .ring-legend div { display: flex; align-items: center; gap: 8px; font-size: 0.92rem; color: var(--hub-muted); }
+  .ring-legend i { width: 11px; height: 11px; border-radius: 3px; }
+  .ring-legend b { margin-left: auto; color: var(--ink); }
+
+  .gauges { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-3); text-align: center; }
+  .gauge b { display: block; font-size: 1.05rem; font-weight: 800; }
+  .gauge-cap { font-size: 0.88rem; color: var(--ink); margin-top: 6px; font-weight: 700; }
+  .gauge-sub { font-size: 0.8rem; color: var(--hub-muted); }
+  @media (max-width: 520px) { .gauges { grid-template-columns: 1fr; } }
+
+  .track { margin-bottom: var(--space-4); }
+  .track:last-child { margin-bottom: 0; }
+  .track-head { display: flex; align-items: center; gap: var(--space-3); font-size: 0.95rem; font-weight: 700; }
+  .track-head .pct { margin-left: auto; padding: 2px 9px; border-radius: 999px; background: var(--surface-soft); font-size: 0.8rem; }
+  .bar { height: 9px; margin: 8px 0 4px; border-radius: 999px; background: rgba(255,255,255,0.08); overflow: hidden; }
+  .bar i { display: block; height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--blue), var(--violet)); }
+  .track-sub { font-size: 0.82rem; color: var(--hub-muted); }
+
+  .list { display: grid; gap: 10px; }
+  .list-item {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 11px 13px; border-radius: 10px;
+    background: var(--surface-soft); border: 1px solid var(--line);
+    font-size: 0.95rem;
+  }
+  .list-item .badge { margin-left: auto; font-size: 0.78rem; font-weight: 800; padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
+  .badge-ok { background: rgba(49,209,160,0.16); color: var(--ok); }
+  .badge-warn { background: rgba(255,191,105,0.16); color: var(--warn); }
+  .badge-info { background: rgba(7,167,236,0.16); color: #8ee8ff; }
+  .check { width: 17px; height: 17px; border-radius: 5px; border: 1.5px solid var(--line); flex: 0 0 auto; margin-top: 2px; display: grid; place-items: center; font-size: 0.7rem; }
+  .check-done { background: rgba(49,209,160,0.2); border-color: rgba(49,209,160,0.5); color: var(--ok); }
+
+  /* CRM */
+  .stage-row { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 6px; scrollbar-width: none; }
+  .stage-row::-webkit-scrollbar { display: none; }
+  .stage {
+    flex: 0 0 auto; min-height: 44px;
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 8px 13px; border-radius: 999px;
+    background: var(--surface-soft); border: 1px solid var(--line);
+    font-size: 0.9rem; font-weight: 700; color: var(--hub-muted);
+  }
+  .stage.is-on { background: var(--indigo); border-color: transparent; color: #fff; }
+  .stage .n { padding: 1px 7px; border-radius: 999px; background: rgba(0,0,0,0.28); font-size: 0.78rem; }
+
+  .filters { display: flex; flex-wrap: wrap; gap: 7px; margin: var(--space-4) 0; }
+  .filter { padding: 7px 12px; border-radius: 9px; background: #071120; border: 1px solid var(--line); color: var(--hub-muted); font-size: 0.86rem; }
+
+  .crm-leads { display: grid; gap: 9px; }
+  .crm-lead {
+    display: grid; gap: 4px;
+    padding: 13px 15px; border-radius: 11px;
+    background: var(--surface-soft);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--hub-muted);
+  }
+  .crm-lead.a { border-left-color: var(--ok); }
+  .crm-lead.b { border-left-color: var(--warn); }
+  .crm-lead.c { border-left-color: var(--danger); }
+  .crm-lead-top { display: flex; align-items: center; gap: 9px; flex-wrap: wrap; }
+  .crm-lead-name { font-weight: 800; font-size: 1.02rem; }
+  .crm-lead-sub { font-size: 0.88rem; color: var(--hub-muted); }
+  .metas { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+  .meta { padding: 2px 9px; border-radius: 999px; background: rgba(255,255,255,0.07); border: 1px solid var(--line); font-size: 0.79rem; color: var(--hub-muted); }
+  .meta-score { background: rgba(7,167,236,0.16); color: #8ee8ff; border-color: transparent; }
+  .meta-new { background: rgba(191,15,201,0.2); color: #f3b9f7; border-color: transparent; font-weight: 800; }
+  .crm-lead-act { margin-left: auto; font-size: 0.84rem; font-weight: 800; color: #8ee8ff; }
+
+  /* PM */
+  .kpis { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: var(--space-3); margin-bottom: var(--space-4); }
+  .kpi { padding: 13px; border-radius: 11px; background: var(--surface-soft); border: 1px solid var(--line); text-align: center; }
+  .kpi b { display: block; font-size: 1.45rem; font-weight: 800; }
+  .kpi span { font-size: 0.82rem; color: var(--hub-muted); }
+  @media (max-width: 680px) { .kpis { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+
+  .subtabs { display: flex; gap: 5px; overflow-x: auto; margin-bottom: var(--space-4); scrollbar-width: none; }
+  .subtabs::-webkit-scrollbar { display: none; }
+  .subtab { flex: 0 0 auto; padding: 7px 13px; border-radius: 999px; background: var(--surface-soft); border: 1px solid var(--line); font-size: 0.88rem; font-weight: 700; color: var(--hub-muted); }
+  .subtab.is-on { background: var(--surface-strong); color: var(--ink); }
+
+  .proj { padding: var(--space-4); border-radius: 12px; background: var(--surface-soft); border: 1px solid var(--line); }
+  .proj h4 { margin: 0 0 4px; font-size: 1.02rem; color: var(--ink); }
+  .proj p { margin: 0 0 10px; font-size: 0.88rem; color: var(--hub-muted); }
+
+  /* Flow */
+  .flow-wrap { position: relative; overflow-x: auto; padding: var(--space-4) 0; }
+  .flow { position: relative; width: 920px; height: 300px; }
+  .flow svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .node {
+    position: absolute; width: 176px;
+    padding: 12px 13px; border-radius: 12px;
+    background: var(--surface-strong); border: 1px solid var(--line);
+    box-shadow: 0 10px 24px rgba(0,0,0,0.3);
+  }
+  .node b { display: block; font-size: 0.94rem; margin-bottom: 3px; }
+  .node span { font-size: 0.8rem; color: var(--hub-muted); }
+  .node.gate { border-color: rgba(255,191,105,0.55); }
+  .node.start { border-color: rgba(7,167,236,0.55); }
+  .node.done { border-color: rgba(49,209,160,0.5); }
+  .node-tag { position: absolute; top: -10px; right: 10px; padding: 1px 8px; border-radius: 999px; font-size: 0.72rem; font-weight: 800; }
+  .tag-blue { background: var(--blue); color: #04121f; }
+  .tag-warn { background: var(--warn); color: #2a1b00; }
+  .tag-ok { background: var(--ok); color: #03261c; }
+
+  .hint { margin-top: var(--space-3); font-size: 0.86rem; color: var(--hub-muted); }
+
+  .stack { display: grid; gap: var(--space-4); }
+
+  /* Abschluss */
+  .closing { background: var(--color-surface); }
+  .closing .card p { color: var(--color-ink-soft); }
+  .cta-row { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-6); }
+</style>
+</head>
+<body>
+
+<header class="site-head">
+  <a class="wordmark" href="../index.html">JaFa Systems</a>
+  <nav class="head-links">
+    <a class="btn btn-quiet" href="../leistungen/index.html">Leistungen</a>
+    <a class="btn btn-ghost" href="../index.html">Übersicht</a>
+  </nav>
+</header>
+
+<section class="intro">
+  <div class="wrap">
+    <span class="eyebrow">So arbeiten wir</span>
+    <h1>Wir automatisieren unsere eigene Arbeit — bevor wir es Ihnen anbieten.</h1>
+    <p class="lead">
+      Das hier ist unsere Arbeitszentrale. KI-Agenten recherchieren, planen und bauen Entwürfe;
+      wir prüfen und geben frei. Deshalb können wir als kleines Team schnell liefern — und
+      deshalb wissen wir, was Automatisierung in einem Betrieb wirklich bringt.
+    </p>
+
+    <div class="grid grid-3 points">
+      <div class="point">
+        <strong>Nichts läuft ohne Freigabe</strong>
+        <span>Jeder Vorschlag landet bei uns, bevor er zum Kunden geht.</span>
+      </div>
+      <div class="point">
+        <strong>Alles an einem Ort</strong>
+        <span>Projekte, Aufgaben, Kundenkontakt und Wissen in einer Oberfläche.</span>
+      </div>
+      <div class="point">
+        <strong>Genau das bauen wir auch für Sie</strong>
+        <span>Im Kleinen: Anfragen vorsortieren, Antworten vorbereiten, Routine abgeben.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="app-stage">
+  <div class="wrap">
+    <div class="hub">
+
+      <div class="hub-bar">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="hub-url">agent-hub · localhost:4321</span>
+      </div>
+
+      <div class="hub-top">
+        <span class="hub-brand">JaFa Agent-Hub</span>
+        <span class="chips">
+          <span class="chip"><i class="dot"></i> Hub <b>aktiv</b></span>
+          <span class="chip"><i class="dot"></i> Discord <b>verbunden</b></span>
+          <span class="chip chip-demo">Demo-Ansicht · Beispieldaten</span>
+        </span>
+      </div>
+
+      <div class="hub-hero">
+        <span class="kicker">Operations Dashboard</span>
+        <h2>Vom Kontext zur freigegebenen Arbeit</h2>
+        <p>Agenten arbeiten vor, Menschen entscheiden.</p>
+        <div class="steps">
+          <span class="step"><i>1</i> Kontext</span>
+          <span class="step-arrow">→</span>
+          <span class="step"><i>2</i> Planung</span>
+          <span class="step-arrow">→</span>
+          <span class="step"><i>3</i> Review</span>
+          <span class="step-arrow">→</span>
+          <span class="step"><i>4</i> Freigabe</span>
+        </div>
+      </div>
+
+      <div class="hub-tabs" role="tablist" aria-label="Bereiche">
+        <button class="hub-tab" role="tab" aria-selected="true" data-view="dashboard">📊 Dashboard</button>
+        <button class="hub-tab" role="tab" aria-selected="false" data-view="crm">👥 CRM</button>
+        <button class="hub-tab" role="tab" aria-selected="false" data-view="pm">📋 Projektmanagement</button>
+        <button class="hub-tab" role="tab" aria-selected="false" data-view="flows">⚙️ Automatisierung</button>
+        <button class="hub-tab" role="tab" aria-selected="false" disabled>🤖 Agenten</button>
+        <button class="hub-tab" role="tab" aria-selected="false" disabled>🧭 Planung</button>
+        <button class="hub-tab" role="tab" aria-selected="false" disabled>🎨 Design Library</button>
+        <button class="hub-tab" role="tab" aria-selected="false" disabled>📚 Knowledge Base</button>
+      </div>
+
+      <!-- ============ Dashboard ============ -->
+      <section class="hub-view is-active" id="view-dashboard">
+        <div class="hub-grid hub-grid-2">
+
+          <div class="panel">
+            <h3>Agenten im Hub</h3>
+            <div class="ring-wrap">
+              <svg width="150" height="150" viewBox="0 0 150 150" role="img" aria-label="Agenten: 6 aktiv, 3 geplant, 3 Konzepte">
+                <circle cx="75" cy="75" r="62" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="16"></circle>
+                <circle cx="75" cy="75" r="62" fill="none" stroke="#2bb2ff" stroke-width="16" stroke-linecap="round"
+                        stroke-dasharray="194.8 194.8" stroke-dashoffset="0" transform="rotate(-90 75 75)"></circle>
+                <circle cx="75" cy="75" r="62" fill="none" stroke="#ffbf69" stroke-width="16" stroke-linecap="round"
+                        stroke-dasharray="97.4 292.2" stroke-dashoffset="-194.8" transform="rotate(-90 75 75)"></circle>
+                <circle cx="75" cy="75" r="62" fill="none" stroke="#b88eff" stroke-width="16" stroke-linecap="round"
+                        stroke-dasharray="97.4 292.2" stroke-dashoffset="-292.2" transform="rotate(-90 75 75)"></circle>
+              </svg>
+              <span class="ring-center"><b>12</b><span>Agenten</span></span>
+            </div>
+            <div class="ring-legend">
+              <div><i style="background:#2bb2ff"></i> Aktiv <b>6</b></div>
+              <div><i style="background:#ffbf69"></i> Geplant <b>3</b></div>
+              <div><i style="background:#b88eff"></i> Konzepte <b>3</b></div>
+            </div>
+          </div>
+
+          <div class="stack">
+            <div class="panel">
+              <h3>Fortschritt</h3>
+              <div class="gauges">
+                <div class="gauge">
+                  <div class="ring-wrap">
+                    <svg width="104" height="104" viewBox="0 0 104 104" role="img" aria-label="Aufgaben erledigt: 67 Prozent">
+                      <circle cx="52" cy="52" r="42.5" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="11"></circle>
+                      <circle cx="52" cy="52" r="42.5" fill="none" stroke="#31d1a0" stroke-width="11" stroke-linecap="round"
+                              stroke-dasharray="178.9 88.1" transform="rotate(-90 52 52)"></circle>
+                    </svg>
+                    <span class="ring-center"><b>67%</b></span>
+                  </div>
+                  <div class="gauge-cap">Aufgaben erledigt</div>
+                  <div class="gauge-sub">18 von 27</div>
+                </div>
+                <div class="gauge">
+                  <div class="ring-wrap">
+                    <svg width="104" height="104" viewBox="0 0 104 104" role="img" aria-label="Berichte gelesen: 82 Prozent">
+                      <circle cx="52" cy="52" r="42.5" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="11"></circle>
+                      <circle cx="52" cy="52" r="42.5" fill="none" stroke="#2bb2ff" stroke-width="11" stroke-linecap="round"
+                              stroke-dasharray="218.9 48.1" transform="rotate(-90 52 52)"></circle>
+                    </svg>
+                    <span class="ring-center"><b>82%</b></span>
+                  </div>
+                  <div class="gauge-cap">Berichte gelesen</div>
+                  <div class="gauge-sub">9 von 11</div>
+                </div>
+                <div class="gauge">
+                  <div class="ring-wrap">
+                    <svg width="104" height="104" viewBox="0 0 104 104" role="img" aria-label="Repos sauber: 100 Prozent">
+                      <circle cx="52" cy="52" r="42.5" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="11"></circle>
+                      <circle cx="52" cy="52" r="42.5" fill="none" stroke="#ff6b9d" stroke-width="11" stroke-linecap="round"
+                              stroke-dasharray="267 0" transform="rotate(-90 52 52)"></circle>
+                    </svg>
+                    <span class="ring-center"><b>100%</b></span>
+                  </div>
+                  <div class="gauge-cap">Repos sauber</div>
+                  <div class="gauge-sub">3 von 3</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel">
+              <h3>Wichtige Projekte (Roadmap-Tracks)</h3>
+              <div class="track">
+                <div class="track-head">Track A — Website &amp; Sichtbarkeit <span class="pct">86%</span></div>
+                <div class="bar"><i style="width:86%"></i></div>
+                <div class="track-sub">6 von 7 Phasen erledigt</div>
+              </div>
+              <div class="track">
+                <div class="track-head">Track B — Engine &amp; Agenten <span class="pct">67%</span></div>
+                <div class="bar"><i style="width:67%"></i></div>
+                <div class="track-sub">4 von 6 Phasen erledigt</div>
+              </div>
+              <div class="track">
+                <div class="track-head">Track C — Akquise &amp; Vertrieb <span class="pct">40%</span></div>
+                <div class="bar"><i style="width:40%"></i></div>
+                <div class="track-sub">2 von 5 Phasen erledigt</div>
+              </div>
+              <div class="track">
+                <div class="track-head">Track D — Betrieb &amp; Wartung <span class="pct">laufend</span></div>
+                <div class="bar"><i style="width:100%"></i></div>
+                <div class="track-sub">Dauerbetrieb</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hub-grid hub-grid-3" style="margin-top:var(--space-4)">
+          <div class="panel">
+            <div class="panel-title-row"><h3>🧭 Vorschläge zur Freigabe</h3><span>3</span></div>
+            <div class="list">
+              <div class="list-item">Entwurf: Standortseite Erlangen <span class="badge badge-warn">prüfen</span></div>
+              <div class="list-item">Outreach-Text für Handwerksbetriebe <span class="badge badge-warn">prüfen</span></div>
+              <div class="list-item">Monatsbericht Sichtbarkeit <span class="badge badge-info">neu</span></div>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-title-row"><h3>☑️ Aufgaben-Backlog</h3><span>18 / 27</span></div>
+            <div class="list">
+              <div class="list-item"><span class="check check-done">✓</span> Sitemap eingereicht</div>
+              <div class="list-item"><span class="check check-done">✓</span> Rechtstexte aktualisiert</div>
+              <div class="list-item"><span class="check"></span> Weitere Standortseiten bauen</div>
+              <div class="list-item"><span class="check"></span> Branchenseite veröffentlichen</div>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-title-row"><h3>✅ ToDos</h3><span>heute</span></div>
+            <div class="list">
+              <div class="list-item"><span class="check check-done">✓</span> Rückruf Interessent</div>
+              <div class="list-item"><span class="check"></span> Angebot nachfassen</div>
+              <div class="list-item"><span class="check"></span> Fotos für Referenz anfragen</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ CRM ============ -->
+      <section class="hub-view" id="view-crm">
+        <div class="panel">
+          <div class="panel-title-row">
+            <h3>Kunden, Leads und Akquise</h3>
+            <span>Beispieldaten — keine echten Betriebe</span>
+          </div>
+
+          <div class="stage-row">
+            <span class="stage is-on">Backlog <span class="n">24</span></span>
+            <span class="stage">Potenzial <span class="n">11</span></span>
+            <span class="stage">OnePager <span class="n">6</span></span>
+            <span class="stage">Outreach <span class="n">4</span></span>
+            <span class="stage">Im Gespräch <span class="n">3</span></span>
+            <span class="stage">Gewonnen <span class="n">2</span></span>
+          </div>
+
+          <div class="filters">
+            <span class="filter">Priorität: A</span>
+            <span class="filter">Branche: alle</span>
+            <span class="filter">Ort: Forchheim + 30 km</span>
+            <span class="filter">nur ohne Website</span>
+            <span class="filter">KI-geprüft</span>
+          </div>
+
+          <div class="crm-leads">
+            <div class="crm-lead a">
+              <div class="crm-lead-top">
+                <span class="crm-lead-name">Bäckerei Sonnenfeld</span>
+                <span class="meta meta-new">NEU</span>
+                <span class="crm-lead-act">OnePager bauen →</span>
+              </div>
+              <div class="crm-lead-sub">Bäckerei · Forchheim</div>
+              <div class="metas">
+                <span class="meta meta-score">Potenzial 87</span>
+                <span class="meta">keine Website</span>
+                <span class="meta">★ 4,6 (38)</span>
+                <span class="meta">KI-geprüft</span>
+              </div>
+            </div>
+
+            <div class="crm-lead a">
+              <div class="crm-lead-top">
+                <span class="crm-lead-name">Autohaus Mertens</span>
+                <span class="crm-lead-act">Brief ansehen →</span>
+              </div>
+              <div class="crm-lead-sub">Kfz-Betrieb · Erlangen</div>
+              <div class="metas">
+                <span class="meta meta-score">Potenzial 81</span>
+                <span class="meta">Website veraltet</span>
+                <span class="meta">★ 4,2 (64)</span>
+                <span class="meta">📄 Brief</span>
+              </div>
+            </div>
+
+            <div class="crm-lead a">
+              <div class="crm-lead-top">
+                <span class="crm-lead-name">Kita Regenbogeninsel</span>
+                <span class="crm-lead-act">Entwurf freigeben →</span>
+              </div>
+              <div class="crm-lead-sub">Kindertagesstätte · Fürth</div>
+              <div class="metas">
+                <span class="meta meta-score">Potenzial 90</span>
+                <span class="meta">OnePager erstellt</span>
+                <span class="meta">Branche mit Referenz</span>
+              </div>
+            </div>
+
+            <div class="crm-lead b">
+              <div class="crm-lead-top">
+                <span class="crm-lead-name">Praxis am Stadtpark</span>
+                <span class="crm-lead-act">recherchieren →</span>
+              </div>
+              <div class="crm-lead-sub">Physiotherapie · Bamberg</div>
+              <div class="metas">
+                <span class="meta meta-score">Potenzial 74</span>
+                <span class="meta">★ 4,8 (25)</span>
+                <span class="meta">nicht mobil optimiert</span>
+              </div>
+            </div>
+
+            <div class="crm-lead b">
+              <div class="crm-lead-top">
+                <span class="crm-lead-name">Garten &amp; Grün Weidinger</span>
+                <span class="crm-lead-act">recherchieren →</span>
+              </div>
+              <div class="crm-lead-sub">Garten- und Landschaftsbau · Höchstadt</div>
+              <div class="metas">
+                <span class="meta meta-score">Potenzial 68</span>
+                <span class="meta">keine Website</span>
+                <span class="meta">Neugründung</span>
+              </div>
+            </div>
+
+            <div class="crm-lead c">
+              <div class="crm-lead-top">
+                <span class="crm-lead-name">Elektro Kastner</span>
+                <span class="crm-lead-act">später →</span>
+              </div>
+              <div class="crm-lead-sub">Elektrohandwerk · Nürnberg</div>
+              <div class="metas">
+                <span class="meta meta-score">Potenzial 52</span>
+                <span class="meta">Website aktuell</span>
+              </div>
+            </div>
+          </div>
+
+          <p class="hint">
+            Der Agent recherchiert öffentlich verfügbare Angaben, prüft die bestehende Website
+            und schlägt eine Priorität vor. Angesprochen wird erst, wenn wir zugestimmt haben.
+          </p>
+        </div>
+      </section>
+
+      <!-- ============ Projektmanagement ============ -->
+      <section class="hub-view" id="view-pm">
+        <div class="kpis">
+          <div class="kpi"><b>7</b><span>Projekte aktiv</span></div>
+          <div class="kpi"><b>18</b><span>Aufgaben erledigt</span></div>
+          <div class="kpi"><b>3</b><span>im Arbeitsvorrat</span></div>
+          <div class="kpi"><b>2</b><span>warten auf Freigabe</span></div>
+        </div>
+
+        <div class="subtabs">
+          <span class="subtab is-on">📁 Projekte</span>
+          <span class="subtab">🗺️ Roadmap</span>
+          <span class="subtab">💡 Ideen</span>
+          <span class="subtab">✅ ToDos</span>
+          <span class="subtab">🧠 Berichte</span>
+        </div>
+
+        <div class="panel" style="margin-bottom:var(--space-4)">
+          <div class="panel-title-row">
+            <h3>📥 Arbeitsvorrat</h3>
+            <span>wird der Reihe nach abgearbeitet</span>
+          </div>
+          <div class="list">
+            <div class="list-item">Texte für Branchenseite schreiben <span class="badge badge-warn">wartet</span></div>
+            <div class="list-item">Design-Referenzen auswerten <span class="badge badge-warn">wartet</span></div>
+            <div class="list-item">Monatsbericht zusammenstellen <span class="badge badge-info">läuft</span></div>
+          </div>
+        </div>
+
+        <div class="hub-grid hub-grid-3">
+          <div class="proj">
+            <h4>Website-Relaunch</h4>
+            <p>Eigene Seite neu gebaut und live gestellt</p>
+            <div class="bar"><i style="width:100%"></i></div>
+            <div class="track-sub">abgeschlossen</div>
+          </div>
+          <div class="proj">
+            <h4>Sichtbarkeit ausbauen</h4>
+            <p>Standort- und Branchenseiten, laufende Messung</p>
+            <div class="bar"><i style="width:45%"></i></div>
+            <div class="track-sub">in Arbeit</div>
+          </div>
+          <div class="proj">
+            <h4>Kundenbetreuung automatisieren</h4>
+            <p>Anfragen vorsortieren, Antworten vorbereiten</p>
+            <div class="bar"><i style="width:60%"></i></div>
+            <div class="track-sub">in Arbeit</div>
+          </div>
+        </div>
+
+        <p class="hint">
+          Aus jedem Bericht kann eine Aufgabe werden, aus jeder Aufgabe ein Arbeitsauftrag an
+          einen Agenten — mit Freigabe-Schritt dazwischen.
+        </p>
+      </section>
+
+      <!-- ============ Automatisierung ============ -->
+      <section class="hub-view" id="view-flows">
+        <div class="panel" style="margin-bottom:var(--space-4)">
+          <div class="panel-title-row">
+            <h3>Arbeitsspeicher</h3>
+            <span>gesammelt, wird gebündelt abgearbeitet</span>
+          </div>
+          <div class="list">
+            <div class="list-item">🎨 Design-Analysen <span class="badge badge-info">5 offen</span></div>
+            <div class="list-item">📋 Aufträge im Vorrat <span class="badge badge-warn">3 offen</span></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title-row">
+            <h3>Ablauf: vom neuen Betrieb zum fertigen Entwurf</h3>
+            <span>Beispiel-Ablauf</span>
+          </div>
+
+          <div class="flow-wrap">
+            <div class="flow">
+              <svg viewBox="0 0 920 300" preserveAspectRatio="none" aria-hidden="true">
+                <defs>
+                  <!-- userSpaceOnUse: eine waagerechte Linie hat eine Bounding-Box ohne Höhe,
+                       ein Verlauf in objectBoundingBox-Einheiten würde dort gar nicht zeichnen. -->
+                  <linearGradient id="edge" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="920" y2="0">
+                    <stop offset="0%" stop-color="#07a7ec"></stop>
+                    <stop offset="100%" stop-color="#8241a1"></stop>
+                  </linearGradient>
+                </defs>
+                <!-- Reihe 1: Betrieb -> Recherche -> Website-Check -->
+                <path d="M196 81 L 304 81" stroke="url(#edge)" stroke-width="2.5" fill="none"></path>
+                <path d="M480 81 L 588 81" stroke="url(#edge)" stroke-width="2.5" fill="none"></path>
+                <!-- Umbruch nach unten links auf das Freigabe-Tor -->
+                <path d="M676 135 C 676 172, 420 148, 304 186" stroke="url(#edge)" stroke-width="2.5" fill="none"></path>
+                <!-- Reihe 2: Freigabe -> Entwurf -> Vorschlag -->
+                <path d="M392 239 L 480 239" stroke="url(#edge)" stroke-width="2.5" fill="none"></path>
+                <path d="M656 239 C 690 239, 710 226, 744 226" stroke="url(#edge)" stroke-width="2.5" fill="none"></path>
+              </svg>
+
+              <div class="node start" style="left:20px; top:28px">
+                <span class="node-tag tag-blue">Start</span>
+                <b>Neuer Betrieb</b>
+                <span>aus der Region, noch ohne Website</span>
+              </div>
+              <div class="node" style="left:304px; top:28px">
+                <b>KI-Recherche</b>
+                <span>Branche, Bewertungen, Auftritt</span>
+              </div>
+              <div class="node" style="left:588px; top:28px">
+                <b>Website-Check</b>
+                <span>Tempo, Mobil, Auffindbarkeit</span>
+              </div>
+
+              <div class="node gate" style="left:216px; top:186px">
+                <span class="node-tag tag-warn">Freigabe</span>
+                <b>Wir entscheiden</b>
+                <span>passt der Betrieb zu uns?</span>
+              </div>
+              <div class="node" style="left:480px; top:186px">
+                <b>Entwurf bauen</b>
+                <span>OnePager im Kundendesign</span>
+              </div>
+              <div class="node done" style="left:744px; top:186px; width:160px">
+                <span class="node-tag tag-ok">Ergebnis</span>
+                <b>Vorschlag</b>
+                <span>fertig zum Zeigen</span>
+              </div>
+            </div>
+          </div>
+
+          <p class="hint">
+            Genau dieses Prinzip bauen wir auch für Betriebe: ein Auslöser, ein paar Schritte
+            dazwischen, ein Ergebnis — und an der entscheidenden Stelle ein Mensch.
+          </p>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</section>
+
+<section class="section closing">
+  <div class="wrap-narrow">
+    <div class="card">
+      <span class="eyebrow">Und für Ihren Betrieb?</span>
+      <h2>Wir fangen klein an — mit der Routine, die am meisten Zeit frisst.</h2>
+      <p>
+        Anfragen vorsortieren, Antworten vorbereiten, Bewertungen automatisch anfragen,
+        ein Assistent für die häufigsten Fragen. Kein Großprojekt, sondern etwas, das Sie
+        nach kurzer Zeit ausprobieren können.
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="../leistungen/index.html">Leistungen ansehen</a>
+        <a class="btn btn-ghost" href="../../angebots-baukasten/">Angebot zusammenstellen</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <p>
+      <strong>JaFa Systems UG (haftungsbeschränkt)</strong> ·
+      <a href="mailto:mail@jafasystems.de">mail@jafasystems.de</a> ·
+      <a href="tel:+4915129649710">+49 151 29649710</a> ·
+      <a href="https://www.jafasystems.de/" target="_blank" rel="noopener">www.jafasystems.de</a>
+    </p>
+    <p class="muted">
+      Die gezeigte Oberfläche ist eine Demo-Ansicht unserer internen Arbeitszentrale.
+      Alle Betriebe, Zahlen und Aufgaben darin sind Beispiele.
+    </p>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var tabs = document.querySelectorAll('.hub-tab[data-view]');
+    var views = document.querySelectorAll('.hub-view');
+
+    function show(name) {
+      tabs.forEach(function (t) {
+        t.setAttribute('aria-selected', String(t.dataset.view === name));
+      });
+      views.forEach(function (v) {
+        v.classList.toggle('is-active', v.id === 'view-' + name);
+      });
+    }
+
+    tabs.forEach(function (t) {
+      t.addEventListener('click', function () { show(t.dataset.view); });
+    });
+  })();
+</script>
+
+</body>
+</html>

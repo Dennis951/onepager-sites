@@ -1,0 +1,276 @@
+/* JaFa Systems — Messe-Assets
+   Tokens 1:1 aus dem Live-Theme (jafa-theme/assets/css/base.css, ausgelesen 24.09.2026),
+   damit die Messe-Seiten wie www.jafasystems.de aussehen und nicht nur so ähnlich. */
+
+@font-face {
+  font-family: "Manrope";
+  src: url("manrope-variable.ttf") format("truetype-variations");
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --color-ink: #010b15;
+  --color-ink-soft: #1d2433;
+  --color-muted: #667085;
+  --color-brand: #3e29ae;
+  --color-brand-strong: #000956;
+  --color-brand-blue: #07a7ec;
+  --color-brand-purple: #8241a1;
+  --color-brand-magenta: #bf0fc9;
+  --color-accent: #ff8a56;
+  --color-accent-soft: #fff1e9;
+  --color-success: #13795b;
+  --color-surface: #f7f7fb;
+  --color-surface-warm: #fbf8ff;
+  --color-surface-strong: #edeaf8;
+  --color-white: #ffffff;
+  --color-line: #e5e7f0;
+  --color-line-strong: #cbcfe0;
+
+  --gradient-brand: linear-gradient(135deg, #07a7ec 0%, #3e29ae 44%, #8241a1 72%, #bf0fc9 100%);
+  --gradient-brand-soft: linear-gradient(135deg, rgba(7, 167, 236, 0.14), rgba(130, 65, 161, 0.12) 58%, rgba(191, 15, 201, 0.1));
+  --gradient-text: linear-gradient(90deg, #000956 0%, #8241a1 100%);
+  --gradient-hero: linear-gradient(135deg, #010b15 0%, #000956 55%, #3e29ae 100%);
+
+  --shadow-soft: 0 18px 45px rgba(1, 11, 21, 0.08);
+  --shadow-lift: 6px 12px 34px rgba(1, 11, 21, 0.18);
+
+  --font-sans: "Manrope", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --content-default: min(1040px, calc(100vw - 40px));
+  --content-wide: min(1180px, calc(100vw - 40px));
+
+  --radius-xs: 8px;
+  --radius-sm: 12px;
+  --radius-md: 20px;
+  --radius-lg: 32px;
+  --radius-xl: 40px;
+
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;   /* iPad dreht sonst im Querformat an der Schriftgröße */
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--color-white);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 1.05rem;               /* Messe-Abstand: Fließtext nie kleiner */
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4 {
+  margin: 0 0 var(--space-4);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  color: var(--color-brand-strong);
+}
+
+h1 { font-size: clamp(2rem, 4.2vw, 3.1rem); font-weight: 800; }
+h2 { font-size: clamp(1.6rem, 2.8vw, 2.25rem); font-weight: 800; }
+h3 { font-size: 1.22rem; font-weight: 700; }
+
+p { margin: 0 0 var(--space-4); }
+p:last-child { margin-bottom: 0; }
+
+a { color: var(--color-brand); }
+
+.wrap { width: var(--content-wide); margin-inline: auto; }
+.wrap-narrow { width: var(--content-default); margin-inline: auto; }
+
+/* ---------- Kopf ---------- */
+
+.site-head {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-4) max(20px, calc((100vw - 1180px) / 2));
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--color-line);
+}
+
+/* Es gibt keine Logodatei — die Wortmarke ist laut company/brand-facts.md
+   Farbverlaufs-Text. Genau so wird sie hier gebaut. */
+.wordmark {
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+  background: var(--gradient-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  white-space: nowrap;
+}
+
+.head-links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+/* ---------- Buttons ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  min-height: 48px;                 /* Tap-Ziel iPad */
+  padding: 0.7em 1.35em;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+
+.btn-primary {
+  background: var(--gradient-brand);
+  color: #fff;
+  box-shadow: var(--shadow-soft);
+}
+
+.btn-ghost {
+  background: var(--color-white);
+  border-color: var(--color-line-strong);
+  color: var(--color-brand-strong);
+}
+
+.btn-quiet {
+  background: transparent;
+  color: var(--color-ink-soft);
+  min-height: 44px;
+  padding: 0.5em 0.9em;
+  font-weight: 600;
+}
+
+.btn:active { transform: translateY(1px); }
+
+@media (hover: hover) {
+  .btn-primary:hover { box-shadow: var(--shadow-lift); }
+  .btn-ghost:hover { border-color: var(--color-brand); }
+}
+
+/* ---------- Bausteine ---------- */
+
+.eyebrow {
+  display: inline-block;
+  margin-bottom: var(--space-3);
+  font-size: 0.86rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--color-brand-purple);
+}
+
+.lead {
+  font-size: 1.2rem;
+  color: var(--color-ink-soft);
+}
+
+.section {
+  padding: var(--space-20) 0;
+}
+
+.section-tight { padding: var(--space-12) 0; }
+
+.section-surface { background: var(--color-surface); }
+.section-warm { background: var(--color-surface-warm); }
+
+.card {
+  background: var(--color-white);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-soft);
+}
+
+.grid { display: grid; gap: var(--space-5); }
+
+@media (min-width: 720px) {
+  .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (min-width: 1000px) {
+  .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+@media (max-width: 999px) {
+  .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 560px) {
+  .grid-4 { grid-template-columns: 1fr; }
+}
+
+/* Icon-Plakette: Träger indigo, genau EIN blauer Akzent — Icon-System 14.09.2026 */
+.tile-icon {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  margin-bottom: var(--space-4);
+  border-radius: var(--radius-sm);
+  background: var(--gradient-brand-soft);
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.muted { color: var(--color-muted); }
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.3em 0.75em;
+  border-radius: 999px;
+  background: var(--color-surface-strong);
+  color: var(--color-brand-strong);
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
+.site-foot {
+  padding: var(--space-10) 0 var(--space-12);
+  border-top: 1px solid var(--color-line);
+  color: var(--color-muted);
+  font-size: 0.95rem;
+}
+
+.site-foot a { color: var(--color-brand); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; animation: none !important; }
+}
